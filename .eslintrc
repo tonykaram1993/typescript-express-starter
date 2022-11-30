@@ -9,7 +9,8 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     // To enforce using type for object type definitions, can be type or interface
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "no-console": "warn"
   },
   "env": {
     "es2021": true
