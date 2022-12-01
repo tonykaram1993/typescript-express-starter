@@ -6,8 +6,6 @@ import logger from "./utils/logger";
 import indexRoute from "./routes/index.routes";
 
 dotenv.config();
-console.log(process.env);
-
 db.connect();
 
 const app: Express = express();
@@ -17,6 +15,5 @@ const { PORT } = process.env;
 app.use(indexRoute);
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
   logger.log("info", `Server is running at https://localhost:${PORT}`);
 });
