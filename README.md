@@ -2,7 +2,7 @@
 
 1. **DONE** eslint
 2. **DONE** prettier
-3. winston logger
+3. **DONE** winston logger
 4. **DONE** github actions
 5. mongodb
 6. typegoose
@@ -10,7 +10,7 @@
 8. jest
 9. swagger
 10. swc
-11. structure
+11. **DONE** structure
 12. .env file loading based on ENV
 13. morgan
 14. chalk

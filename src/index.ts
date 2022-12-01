@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
+import logger from "./utils/logger";
 
 import indexRoute from "./routes/index.routes";
 
@@ -13,5 +14,5 @@ app.use(indexRoute);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`Server is running at https://localhost:${port}`);
+  logger.log("info", `Server is running at https://localhost:${port}`);
 });
