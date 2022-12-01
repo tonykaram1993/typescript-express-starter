@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import morgan from "morgan";
 
 const router = Router({
   mergeParams: true,
@@ -8,6 +9,9 @@ const router = Router({
 
 // Cors
 router.use(cors());
+
+// Requests logging
+router.use(morgan("dev"));
 
 // Body Parser
 router.use(bodyParser.urlencoded({ extended: true }));
