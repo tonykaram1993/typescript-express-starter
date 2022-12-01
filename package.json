@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "dev": "concurrently --names \"watch,server\" -c \"blue,red\" \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts .",
     "lint:fix": "eslint --ignore-path .gitignore --ext .js,.ts --fix .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
