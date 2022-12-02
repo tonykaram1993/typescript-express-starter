@@ -6,7 +6,11 @@ mongoose.connection.on("connected", () => {
 });
 
 const getMongoUrl = () => {
-  const { MONGODB_HOST, MONGODB_PORT, MONGODB_DATABASE } = process.env;
+  const {
+    MONGODB_HOST = "localhost",
+    MONGODB_PORT = "27017",
+    MONGODB_DATABASE = "typescript",
+  } = process.env;
 
   return `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}`;
 };

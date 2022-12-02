@@ -9,7 +9,7 @@ dotenv.config();
 db.connect();
 
 const app: Express = express();
-const { PORT } = process.env;
+const { PORT } = process.env || 5000;
 
 // Routes
 app.use(indexRoute);

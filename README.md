@@ -4,8 +4,8 @@
 2. **DONE** prettier
 3. **DONE** winston logger
 4. **DONE** github actions
-5. mongodb
-6. typegoose
+5. **DONE** mongodb
+6. **ABONDONNED** typegoose
 7. pm2
 8. jest
 9. swagger
@@ -14,6 +14,7 @@
 12. .env file loading based on ENV
 13. **DONE** morgan
 14. chalk
+15. authentication
 
 ### How to install
 
@@ -23,6 +24,7 @@
 
 ### Code structure
 
+```
 /config
 /controllers
 /interfaces
@@ -32,3 +34,4 @@
 /services
 /tests
 /utils
+```
