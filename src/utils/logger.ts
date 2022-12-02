@@ -24,7 +24,12 @@ const logger = createLogger({
 if (process.env.NODE_ENV !== "production") {
   logger.add(
     new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
+      format: format.combine(
+        format.errors({ stack: true }),
+        format.colorize(),
+        format.simple(),
+        format.splat()
+      ),
     })
   );
 }
