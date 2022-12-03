@@ -8,13 +8,14 @@
 6. **ABONDONNED** typegoose
 7. pm2
 8. jest
-9. swagger
-10. swc
+9. **DONE** swagger
+10. **DONE** swc
 11. **DONE** structure
 12. .env file loading based on ENV
 13. **DONE** morgan
 14. chalk
 15. authentication
+16. **DONE** helmet
 
 ### How to install
 

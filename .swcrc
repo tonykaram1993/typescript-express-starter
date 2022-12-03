@@ -13,5 +13,6 @@
     "loose": false,
     "externalHelpers": false
   },
-  "minify": true
+  "minify": true,
+  "isModule": true
 }

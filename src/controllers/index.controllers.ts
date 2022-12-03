@@ -17,8 +17,7 @@ const getUser = async () => {
 };
 
 const get = async (req: Request, res: Response) => {
-  res.status(StatusCodes.NO_CONTENT);
-  res.end();
+  res.status(StatusCodes.NO_CONTENT).end();
 };
 
 export default {
