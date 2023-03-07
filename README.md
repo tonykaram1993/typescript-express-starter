@@ -16,6 +16,7 @@
 14. chalk
 15. authentication
 16. **DONE** helmet
+17. Zod validation
 
 ### How to install
 
