@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import dotenv from "dotenv";
+import "dotenv/config";
 import swaggerUI from "swagger-ui-express";
 
 import db from "./utils/db";
@@ -8,7 +8,6 @@ import indexRoute from "./routes/index.routes";
 import swaggerDocument from "./specs/swagger.json";
 import swaggerOptions from "./config/swagger";
 
-dotenv.config();
 db.connect();
 
 const app: Express = express();

@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "node dist/index.js dotenv_config_path=.env.development",
+    "start:prod": "node dist/index.js dotenv_config_path=.env.production",
+    "start:staging": "node dist/index.js dotenv_config_path=.env.staging",
+    "start:watch:dev": "nodemon -q dist/index.js dotenv_config_path=.env.development",
+    "start:watch:staging": "nodemon -q dist/index.js dotenv_config_path=.env.staging",
+    "start:watch:prod": "nodemon -q dist/index.js dotenv_config_path=.env.production",
     "build": "npx swc ./src --config-file .swcrc --out-dir ./dist",
     "build:watch": "npx swc ./src --config-file .swcrc --copy-files --out-dir ./dist -w",
-    "start": "node dist/index.js",
-    "start:watch": "nodemon -q dist/index.js",
-    "dev": "concurrently --names \"watch,server\" -c \"blue,red\" \"npm:build:watch\" \"npm:start:watch\"",
+    "dev": "concurrently --names \"watch,server\" -c \"blue,yellow\" \"npm:build:watch\" \"npm:start:watch:dev\"",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts .",
     "lint:fix": "eslint --ignore-path .gitignore --ext .js,.ts --fix .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""

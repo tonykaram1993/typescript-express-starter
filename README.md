@@ -11,7 +11,7 @@
 9. **DONE** swagger
 10. **DONE** swc
 11. **DONE** structure
-12. .env file loading based on ENV
+12. **DONE** .env file loading based on ENV
 13. **DONE** morgan
 14. chalk
 15. authentication
