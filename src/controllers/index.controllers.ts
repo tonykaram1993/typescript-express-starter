@@ -1,19 +1,15 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { Document } from "mongoose";
-
-// Models
-import UserModel, { User } from "../models/User.models";
 
 // Utils
-import logger from "../utils/logger";
+import userServices from "../services/user.services";
 
-const getUser = async () => {
-  const user = (await UserModel.findOne({
-    email: "asd3@asd3.com",
-  })) as User & Document;
+const getUser = async (req: Request, res: Response) => {
+  const { email = "testing@email.com" } = req.body;
 
-  logger.info(`🔥 - file: index.controllers.ts:16 - user %o`, user.email);
+  const user = userServices.getUserByEmail(email);
+
+  res.status(StatusCodes.OK).json(user);
 };
 
 const get = async (req: Request, res: Response) => {

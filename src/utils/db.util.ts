@@ -1,5 +1,7 @@
 import mongoose, { ConnectOptions } from "mongoose";
-import logger from "./logger";
+
+// Utils
+import logger from "./logger.util";
 
 mongoose.connection.on("connected", () => {
   logger.info(`Connected to MongoDb! [${getMongoUrl()}]`);

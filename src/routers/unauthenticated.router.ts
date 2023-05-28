@@ -4,11 +4,14 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import helmet from "helmet";
 
+// Config
+import globals from "../configs/globals.config";
+
+const { NODE_ENV } = process.env;
+
 const router = Router({
   mergeParams: true,
 });
-
-const { NODE_ENV } = process.env || "development";
 
 // Cors
 router.use(cors());
@@ -19,7 +22,7 @@ router.use(morgan("dev"));
 // Helmet (security headers)
 router.use(
   helmet({
-    contentSecurityPolicy: NODE_ENV === "production",
+    contentSecurityPolicy: NODE_ENV === globals.ENVIRONMENTS.PRODUCTION,
   })
 );
 

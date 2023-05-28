@@ -16,7 +16,10 @@
 14. chalk
 15. authentication
 16. **DONE** helmet
-17. Zod validation
+17. Add example validation with zod
+18. **DONE** Add example service
+19. **DONE** Add example controller
+20. Add example middleware
 
 ### How to install
 

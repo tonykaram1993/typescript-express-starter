@@ -2,23 +2,24 @@ import express, { Express } from "express";
 import "dotenv/config";
 import swaggerUI from "swagger-ui-express";
 
-import db from "./utils/db";
-import logger from "./utils/logger";
-import indexRoute from "./routes/index.routes";
+import db from "./utils/db.util";
+import logger from "./utils/logger.util";
+import indexRoute from "./routes/index.route";
 import swaggerDocument from "./specs/swagger.json";
-import swaggerOptions from "./config/swagger";
+import swaggerOptions from "./configs/swagger.config";
+import globals from "./configs/globals.config";
 
 db.connect();
 
 const app: Express = express();
 const { PORT } = process.env || 5000;
-const { NODE_ENV } = process.env || "development";
+const { NODE_ENV } = process.env;
 
 // Routes
 app.use(indexRoute);
 
 // Swagger
-if (NODE_ENV !== "production") {
+if (NODE_ENV !== globals.ENVIRONMENTS.PRODUCTION) {
   app.use(
     "/api-docs",
     swaggerUI.serve,
