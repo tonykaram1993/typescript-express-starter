@@ -4,16 +4,16 @@ import { StatusCodes } from "http-status-codes";
 // Utils
 import userServices from "../services/user.services";
 
-const getUser = async (req: Request, res: Response) => {
-  const { email = "testing@email.com" } = req.body;
+const getUser = async (request: Request, response: Response) => {
+  const { email = "testing@email.com" } = request.body;
 
   const user = userServices.getUserByEmail(email);
 
-  res.status(StatusCodes.OK).json(user);
+  response.status(StatusCodes.OK).json(user);
 };
 
-const get = async (req: Request, res: Response) => {
-  res.status(StatusCodes.NO_CONTENT).end();
+const get = async (request: Request, response: Response) => {
+  response.status(StatusCodes.NO_CONTENT).end();
 };
 
 export default {

@@ -5,7 +5,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 // Config
-import globals from "../configs/globals.config";
+import globalsConfig from "../configs/globals.config";
 
 const { NODE_ENV } = process.env;
 
@@ -22,7 +22,7 @@ router.use(morgan("dev"));
 // Helmet (security headers)
 router.use(
   helmet({
-    contentSecurityPolicy: NODE_ENV === globals.ENVIRONMENTS.PRODUCTION,
+    contentSecurityPolicy: NODE_ENV === globalsConfig.ENVIRONMENTS.PRODUCTION,
   })
 );
 

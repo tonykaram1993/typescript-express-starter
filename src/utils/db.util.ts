@@ -4,15 +4,11 @@ import mongoose, { ConnectOptions } from "mongoose";
 import logger from "./logger.util";
 
 mongoose.connection.on("connected", () => {
-  logger.info(`Connected to MongoDb! [${getMongoUrl()}]`);
+  logger.info(`Connected to MongoDB! [${getMongoUrl()}]`);
 });
 
 const getMongoUrl = () => {
-  const {
-    MONGODB_HOST = "localhost",
-    MONGODB_PORT = "27017",
-    MONGODB_DATABASE = "typescript",
-  } = process.env;
+  const { MONGODB_HOST, MONGODB_PORT, MONGODB_DATABASE } = process.env;
 
   return `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}`;
 };

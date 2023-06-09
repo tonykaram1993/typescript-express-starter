@@ -29,7 +29,7 @@
         "tags": [
           "index"
         ],
-        "summary": "Get an acknowledgmenet that the server is up and running",
+        "summary": "Get an acknowledgment that the server is up and running",
         "operationId": "indexGet",
         "responses": {
           "204": {

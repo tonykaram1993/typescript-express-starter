@@ -1,7 +1,8 @@
 import { createLogger, format, transports } from "winston";
 
 // Configs
-import globals from "../configs/globals.config";
+import globalsConfig from "../configs/globals.config";
+import settingsConfig from "../configs/settings.config";
 
 const logger = createLogger({
   level: "info",
@@ -13,14 +14,17 @@ const logger = createLogger({
   transports: [
     // Write to all logs with level `info` and below to `combined.log`.
     // Write all logs error (and below) to `error.log`.
-    new transports.File({ filename: "src/logs/error.log", level: "error" }),
-    new transports.File({ filename: "src/logs/combined.log" }),
+    new transports.File({
+      filename: settingsConfig.ERROR.FILES.ERROR,
+      level: "error",
+    }),
+    new transports.File({ filename: settingsConfig.ERROR.FILES.COMBINED }),
   ],
 });
 
 // If we're not in production then **ALSO** log to the `console` with the
 // colorized simple format.
-if (process.env.NODE_ENV !== globals.ENVIRONMENTS.PRODUCTION) {
+if (process.env.NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {
   logger.add(
     new transports.Console({
       format: format.combine(
