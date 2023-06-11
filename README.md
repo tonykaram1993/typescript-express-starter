@@ -6,7 +6,7 @@
 4. **DONE** github actions
 5. **DONE** mongodb
 6. **ABANDONED** typegoose
-7. pm2
+7. **DONE** pm2
 8. jest
 9. **DONE** swagger
 10. **DONE** swc
