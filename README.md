@@ -16,13 +16,12 @@
 14. chalk
 15. authentication
 16. **DONE** helmet
-17. Add example validation with zod
+17. **DONE** Add example validation with zod
 18. **DONE** Add example service
 19. **DONE** Add example controller
-20. Add example middleware
-21. Error handler middleware
-22. Env variable types
-23. Add try/catch utility
+20. **DONE** Add example middleware
+21. **DONE** Env variable types
+22. **DONE** Add try/catch utility
 
 ### How to install
 
@@ -35,7 +34,6 @@
 ```
 /config
 /controllers
-/types
 /logs
 /middlewares
 /models
@@ -44,4 +42,8 @@
 /services
 /specs
 /utils
+/validation
+  /declarations
+  /schemas
+  /types
 ```
