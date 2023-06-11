@@ -2,9 +2,12 @@ import mongoose, { ConnectOptions } from "mongoose";
 
 // Utils
 import logger from "./logger.util";
+import stringsConfig from "../configs/strings.config";
 
 mongoose.connection.on("connected", () => {
-  logger.info(`Connected to MongoDB! [${getMongoUrl()}]`);
+  logger.info(
+    `${stringsConfig.MESSAGES.CONNECTED_TO_MONGODB} [${getMongoUrl()}]`
+  );
 });
 
 const getMongoUrl = () => {

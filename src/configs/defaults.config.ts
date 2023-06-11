@@ -1,6 +1,9 @@
+// Configs
+import stringsConfig from "./strings.config";
+
 const ERROR = {
   STATUS_CODE: 500,
-  MESSAGE: "Something went wrong",
+  MESSAGE: stringsConfig.ERRORS.SOMETHING_WENT_WRONG,
 };
 
 const APP = {

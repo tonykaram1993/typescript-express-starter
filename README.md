@@ -5,7 +5,7 @@
 3. **DONE** winston logger
 4. **DONE** github actions
 5. **DONE** mongodb
-6. **ABONDONNED** typegoose
+6. **ABANDONED** typegoose
 7. pm2
 8. jest
 9. **DONE** swagger
@@ -22,6 +22,7 @@
 20. Add example middleware
 21. Error handler middleware
 22. Env variable types
+23. Add try/catch utility
 
 ### How to install
 
