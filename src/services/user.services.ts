@@ -1,10 +1,15 @@
 // Models
-import UserModel, { User } from "../models/User.model";
+import UserModel from "../models/User.model";
+
+// Utils
+import logger from "../utils/logger.util";
 
 const getUserByEmail = async (email: string) => {
-  const user = (await UserModel.findOne({
+  const user = await UserModel.findOne({
     email,
-  })) as User;
+  });
+
+  logger.info(user?.password);
 
   return user;
 };
