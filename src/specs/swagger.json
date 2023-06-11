@@ -26,9 +26,7 @@
   "paths": {
     "/": {
       "get": {
-        "tags": [
-          "index"
-        ],
+        "tags": ["index"],
         "summary": "Get an acknowledgment that the server is up and running",
         "operationId": "indexGet",
         "responses": {
