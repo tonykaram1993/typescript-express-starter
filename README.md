@@ -21,30 +21,33 @@
 19. **DONE** Add example middleware
 20. **DONE** Env variable types
 21. **DONE** Add try/catch utility
-22. Add support for yarn and pnpm
+22. **DONE** Add support for yarn and pnpm
 
 ### How to install
 
 1. Clone repo `git clone git@github.com:tonykaram1993/typescript-express-starter.git`
-2. npm install `npm i` - npm is necessary for github actions to work, if you want yarn you must edit .github/workflows/main.yml to use that instead
-3. Rename `.env.example` to `.env.development` - `cp .env.example .env.development`
+2. `yarn install` - if you wish to use npm or pnpm, you must edit .github/workflows/main.yml to not use `yarn`
+3. Copy `.env.example` to `.env.development` - `cp .env.example .env.development`
 4. Install pm2 globally if you want to use pm2 `npm install pm2@latest -g`
 
 ### Code structure
 
 ```
-/config
-/controllers
-/logs
-/middlewares
-/models
-/routers
-/routes
-/services
-/specs
-/utils
-/validation
-  /declarations
-  /schemas
+/src
+  /config
+  /controllers
+  /logs
+  /middlewares
+  /models
+  /routers
+  /routes
+  /services
+  /specs
+  /utils
+  /validation
+    /declarations
+    /schemas
   /types
+/tests
+  /services
 ```
