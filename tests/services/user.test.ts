@@ -1,10 +1,13 @@
+// Services
 import userServices from "../../src/services/user.services";
-import UserModel from "../../src/models/User.model";
+
+// Models
+import UserModel, { User } from "../../src/models/User.model";
 
 jest.mock("../../src/models/User.model");
 
 test("getUserByEmail returns a user", async () => {
-  const user = {
+  const user: User = {
     email: "email@me.com",
     password: "password",
     firstName: "John",
