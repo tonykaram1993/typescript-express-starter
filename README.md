@@ -1,27 +1,23 @@
+### Features
+
+1. Typescript
+1. Express
+1. MongoDB
+1. Zod Validation
+1. Eslint
+1. Prettier
+1. Winston logger
+1. Github Actions
+1. PM2
+1. Jest
+1. Swagger
+1. SWC
+1. Morgan
+1. Helmet
+
 ### TODO
 
-1. **DONE** eslint
-2. **DONE** prettier
-3. **DONE** winston logger
-4. **DONE** github actions
-5. **DONE** mongodb
-6. **ABANDONED** typegoose
-7. **DONE** pm2
-8. **DONE** jest
-9. **DONE** swagger
-10. **DONE** swc
-11. **DONE** structure
-12. **DONE** .env file loading based on ENV
-13. **DONE** morgan
-14. authentication
-15. **DONE** helmet
-16. **DONE** Add example validation with zod
-17. **DONE** Add example service
-18. **DONE** Add example controller
-19. **DONE** Add example middleware
-20. **DONE** Env variable types
-21. **DONE** Add try/catch utility
-22. **DONE** Add support for yarn and pnpm
+1. Add authentication
 
 ### How to install
 
