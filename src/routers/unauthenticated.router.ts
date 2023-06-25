@@ -7,6 +7,9 @@ import helmet from "helmet";
 // Config
 import globalsConfig from "../configs/globals.config";
 
+// Utils
+import rateLimiter from "../utils/limter.util";
+
 const { NODE_ENV } = process.env;
 
 const router = Router({
@@ -25,6 +28,9 @@ router.use(
     contentSecurityPolicy: NODE_ENV === globalsConfig.ENVIRONMENTS.PRODUCTION,
   })
 );
+
+// Rate limiter
+router.use(rateLimiter);
 
 // Body Parser
 router.use(bodyParser.urlencoded({ extended: true }));

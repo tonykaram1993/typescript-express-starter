@@ -14,10 +14,13 @@
 1. SWC
 1. Morgan
 1. Helmet
+1. Add rate limiter
 
 ### TODO
 
 1. Add authentication
+1. Axios interceptors
+1. API versioning
 
 ### How to install
 
