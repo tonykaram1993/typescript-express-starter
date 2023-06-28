@@ -1,26 +1,27 @@
 ### Features
 
-1. Typescript
-1. Express
-1. MongoDB
-1. Zod Validation
-1. Eslint
-1. Prettier
-1. Winston logger
-1. Github Actions
-1. PM2
-1. Jest
-1. Swagger
-1. SWC
-1. Morgan
-1. Helmet
-1. Add rate limiter
+1. Typescript (https://www.typescriptlang.org)
+1. Express (https://expressjs.com)
+1. MongoDB (https://www.mongodb.com)
+1. Zod Validation (https://zod.dev)
+1. Eslint (https://eslint.org)
+1. Prettier (https://prettier.io)
+1. Winston logger (https://github.com/winstonjs/winston)
+1. Github Actions (https://github.com/features/actions)
+1. PM2 (https://pm2.keymetrics.io)
+1. Jest (https://jestjs.io)
+1. Swagger (https://swagger.io)
+1. SWC (https://swc.rs)
+1. Morgan (https://github.com/expressjs/morgan#readme)
+1. Helmet (https://helmetjs.github.io)
+1. Add rate limiter (https://github.com/express-rate-limit/express-rate-limit)
+1. Axios time of flight
 
 ### TODO
 
 1. Add authentication
-1. Axios interceptors
 1. API versioning
+1. Docker
 
 ### How to install
 
