@@ -21,7 +21,7 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "test": "jest"
   },
-  "author": "",
+  "author": "tonykaram1993",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",

@@ -23,6 +23,7 @@ const connect = async () => {
     autoCreate: true,
   };
 
+  mongoose.set("strictQuery", false);
   await mongoose.connect(mongoUrl, connectionOptions);
 };
 
