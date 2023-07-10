@@ -1,16 +1,14 @@
 import * as colorette from "colorette";
+import axios, { AxiosResponse } from "axios";
+
+// Types
+import {
+  FetchRequestMethod,
+  FetchWrapperArguments,
+} from "../validation/types/Fetch.type";
 
 // Utils
 import logger from "./logger.util";
-import axios, { AxiosResponse } from "axios";
-
-type FetchRequestMethod = "post" | "get" | "put" | "patch" | "delete";
-
-type FetchWrapperArguments = {
-  url: string;
-  method: FetchRequestMethod;
-  body?: any;
-};
 
 const fetchWrapper = async ({
   url,
@@ -20,7 +18,6 @@ const fetchWrapper = async ({
   const requestStartTime = Date.now();
 
   const response = await axios[method](url, { method, body });
-  logger.info("TKCL - response:", response);
 
   const requestDuration = (Date.now() - requestStartTime) / 1000;
 
