@@ -11,17 +11,23 @@
 1. PM2 (https://pm2.keymetrics.io)
 1. Jest (https://jestjs.io)
 1. Swagger (https://swagger.io)
-1. SWC (https://swc.rs)
 1. Morgan (https://github.com/expressjs/morgan#readme)
 1. Helmet (https://helmetjs.github.io)
 1. Add rate limiter (https://github.com/express-rate-limit/express-rate-limit)
 1. Axios time of flight
+1. Docker (https://www.docker.com)
+
+### Abandonned Features
+
+1. SWC (https://swc.rs)
+   Currently, SWC does not work well with Docker and is causing many issues, could revisit this at a later date
 
 ### TODO
 
 1. Add authentication
 1. API versioning
-1. Docker
+1. MySQL
+1. Husky
 
 ### How to install
 
