@@ -2,10 +2,9 @@ import { Schema, model } from "mongoose";
 
 export type User = {
   email: string;
-  password: string;
-  firstName?: string;
-  lastName?: string;
-  dateOfBirth?: Date;
+  passwordHash: string;
+  salt: string;
+  refreshToken?: string;
 };
 
 const userSchema = new Schema<User>({
@@ -14,13 +13,15 @@ const userSchema = new Schema<User>({
     required: true,
     unique: true,
   },
-  password: {
+  passwordHash: {
     type: String,
     required: true,
   },
-  firstName: String,
-  lastName: String,
-  dateOfBirth: Date,
+  salt: {
+    type: String,
+    required: true,
+  },
+  refreshToken: String,
 });
 
 export default model<User>("User", userSchema);

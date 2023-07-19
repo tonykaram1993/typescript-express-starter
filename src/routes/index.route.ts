@@ -5,7 +5,7 @@ import indexControllers from "../controllers/index.controllers";
 import validateRequestMiddleware from "../middlewares/validateRequest.middleware";
 
 // Routers
-import router from "../routers/unauthenticated.router";
+import unauthenticatedRouter from "../routers/unauthenticated.router";
 
 // Utils
 import tryCatch from "../utils/tryCatch.util";
@@ -13,12 +13,12 @@ import tryCatch from "../utils/tryCatch.util";
 // Schemas
 import indexPostSchema from "../validation/schemas/index/post.schema";
 
-router.get("/", indexControllers.get);
+unauthenticatedRouter.get("/", indexControllers.get);
 
-router.post(
+unauthenticatedRouter.post(
   "/",
   tryCatch(validateRequestMiddleware(indexPostSchema)),
   tryCatch(indexControllers.post)
 );
 
-export default router;
+export default unauthenticatedRouter;

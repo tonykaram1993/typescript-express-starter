@@ -13,7 +13,7 @@ const validateRequestMiddleware =
     const validation = schema.safeParse({ body, query, params });
 
     if (!validation.success) {
-      return response.sendStatus(StatusCodes.BAD_REQUEST).json({
+      return response.status(StatusCodes.BAD_REQUEST).json({
         message: stringsConfig.ERRORS.VALIDATION,
         errors: validation.error,
       });

@@ -29,7 +29,7 @@ const post: RequestHandler = async (request, response) => {
   logger.info("query", query);
   logger.info("params", params);
 
-  response.sendStatus(StatusCodes.CREATED).json({ body, params, query });
+  response.status(StatusCodes.CREATED).json({ body, params, query });
 };
 
 export default {

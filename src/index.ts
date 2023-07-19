@@ -4,6 +4,7 @@ import "dotenv/config";
 
 // Routes
 import indexRoute from "./routes/index.route";
+import authenticationRoutes from "./routes/authentication.route";
 
 // Specs
 import swaggerDocument from "./specs/swagger.json";
@@ -25,6 +26,8 @@ const { NODE_ENV } = process.env;
 
 // Routes
 app.use(indexRoute);
+app.use("/authentication", authenticationRoutes.unauthenticatedRouter);
+app.use("/authentication", authenticationRoutes.authenticatedRouter);
 
 // Swagger
 if (NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {

@@ -10,7 +10,14 @@ const RATE_LIMITER = {
   MAX: 60,
 };
 
+const AUTHENTICATION = {
+  jwtTokenExpiry: "1h",
+  refreshTokenExpiry: "7d",
+  saltRounds: 10,
+};
+
 export default {
   ERROR,
   RATE_LIMITER,
+  AUTHENTICATION,
 };

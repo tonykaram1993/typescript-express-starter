@@ -9,6 +9,7 @@ import globalsConfig from "../configs/globals.config";
 
 // Utils
 import rateLimiter from "../utils/limiter.util";
+import authenticationMiddleware from "../middlewares/authentication.middleware";
 
 const { NODE_ENV } = process.env;
 
@@ -35,6 +36,9 @@ router.use(rateLimiter);
 // Body Parser
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json({ limit: "5mb" }));
+
+// Authentication
+router.use(authenticationMiddleware);
 
 // Public files
 router.use(express.static("public"));
