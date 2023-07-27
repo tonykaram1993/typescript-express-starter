@@ -14,7 +14,6 @@ import UserModel, { User } from "../models/User.model";
 // Utils
 import getEnvVariable from "../utils/getEnvVariable.util";
 import makeError from "../utils/error.util";
-import logger from "../utils/logger.util";
 
 // Configs
 import settingsConfig from "../configs/settings.config";
@@ -22,6 +21,14 @@ import stringsConfig from "../configs/strings.config";
 
 const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
   const [, token] = authorizationHeader.split("Bearer ");
+
+  if (!token) {
+    throw makeError({
+      status: StatusCodes.INTERNAL_SERVER_ERROR,
+      message: stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER,
+      logMessage: "No token found in authorization header",
+    });
+  }
 
   return token;
 };
@@ -84,13 +91,11 @@ const checkUserPassword = (user: User, password: string) => {
   const isPasswordCorrect = bcrypt.compareSync(password, user.passwordHash);
 
   if (!isPasswordCorrect) {
-    logger.error(
-      `User with email ${user.email} has entered an incorrect password`
-    );
-    throw makeError(
-      StatusCodes.NOT_FOUND,
-      stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND
-    );
+    throw makeError({
+      status: StatusCodes.NOT_FOUND,
+      message: stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
+      logMessage: `User with email ${user.email} has entered an incorrect password`,
+    });
   }
 };
 

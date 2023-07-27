@@ -11,6 +11,7 @@ const ERRORS = {
   PASSWORDS_DO_NOT_MATCH: "Passwords do not match",
   EMAIL_ALREADY_EXISTS: "Email already exists",
   REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED: "Refresh token not found or expired",
+  INVALID_AUTHENTICATION_HEADER: "Invalid authentication header",
 };
 
 const MESSAGES = {
