@@ -1,6 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import lodash from "lodash";
+import lodashOmit from "lodash/omit";
 import { StatusCodes } from "http-status-codes";
 
 // Types
@@ -34,7 +34,7 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
 };
 
 const getSafeUserData = (user: User): DecodedJwtToken =>
-  lodash.omit(user, userPropertiesToOmitInTokens);
+  lodashOmit(user, userPropertiesToOmitInTokens);
 
 const generateJwtToken = (user: User) => {
   const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
