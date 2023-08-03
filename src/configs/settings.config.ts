@@ -1,13 +1,15 @@
 const ERROR = {
+  // Files where the logs will be stored
   FILES: {
     ERROR: "src/logs/error.log",
     COMBINED: "src/logs/combined.log",
   },
 };
 
+// API rate limiter for users
 const RATE_LIMITER = {
-  WINDOW_MS: 15 * 60 * 1000, // 15 minutes
-  MAX: 60,
+  TIME_PERIOD_MS: 900_000, // 15 * 60 * 1000 = 15 minutes
+  MAX_REQUESTS: 60,
 };
 
 const AUTHENTICATION = {

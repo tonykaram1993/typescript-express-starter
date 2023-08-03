@@ -7,5 +7,6 @@
     "titleBar.activeBackground": "#261AC9",
     "titleBar.activeForeground": "#FAF9FE"
   },
-  "cSpell.words": ["signout"]
+  "cSpell.words": ["signout"],
+  "docwriter.style": "JSDoc"
 }

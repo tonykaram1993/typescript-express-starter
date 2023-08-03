@@ -4,8 +4,8 @@ import { RateLimitRequestHandler, rateLimit } from "express-rate-limit";
 import settingsConfig from "../configs/settings.config";
 
 const rateLimiter: RateLimitRequestHandler = rateLimit({
-  windowMs: settingsConfig.RATE_LIMITER.WINDOW_MS,
-  max: settingsConfig.RATE_LIMITER.MAX,
+  windowMs: settingsConfig.RATE_LIMITER.TIME_PERIOD_MS,
+  max: settingsConfig.RATE_LIMITER.MAX_REQUESTS,
   standardHeaders: true,
   legacyHeaders: false,
 });

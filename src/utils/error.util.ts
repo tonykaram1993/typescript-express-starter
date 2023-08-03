@@ -22,15 +22,9 @@ const makeError = ({
   const error: Error = {
     statusCode: status,
     message,
+    errorCode,
+    stack: stackTrace,
   };
-
-  if (errorCode) {
-    error.errorCode = errorCode;
-  }
-
-  if (stackTrace) {
-    error.stack = stackTrace;
-  }
 
   if (logMessage) {
     logger.error(logMessage);
