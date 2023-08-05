@@ -1,11 +1,7 @@
 import bcrypt from "bcrypt";
-import { StatusCodes } from "http-status-codes";
 
 // Models
 import UserModel from "../models/User.model";
-
-// Utils
-import makeError from "../utils/error.util";
 
 // Configs
 import stringsConfig from "../configs/strings.config";
@@ -58,11 +54,7 @@ const verifyUserByEmail = async (email: string) => {
   const user = await getUserByEmail(email);
 
   if (!user) {
-    throw makeError({
-      status: StatusCodes.NOT_FOUND,
-      message: stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
-      logMessage: `User with email ${email} not found`,
-    });
+    throw Error(stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND);
   }
 
   return user;
@@ -79,11 +71,7 @@ const verifyUserByRefreshToken = async (refreshToken: string) => {
   const user = await getUserByRefreshToken(refreshToken);
 
   if (!user) {
-    throw makeError({
-      status: StatusCodes.NOT_FOUND,
-      message: stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED,
-      logMessage: `User with refresh token ${refreshToken} not found`,
-    });
+    throw Error(stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED);
   }
 
   return user;
@@ -100,11 +88,7 @@ const checkEmailUniqueness = async (email: string) => {
   const user = await getUserByEmail(email);
 
   if (user) {
-    throw makeError({
-      status: StatusCodes.BAD_REQUEST,
-      message: stringsConfig.ERRORS.EMAIL_ALREADY_EXISTS,
-      logMessage: `User with email ${email} already exists`,
-    });
+    throw Error(stringsConfig.ERRORS.EMAIL_ALREADY_EXISTS);
   }
 };
 

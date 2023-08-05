@@ -9,6 +9,8 @@ import globalsConfig from "../configs/globals.config";
 
 // Utils
 import rateLimiter from "../utils/limiter.util";
+
+// Middlewares
 import authenticationMiddleware from "../middlewares/authentication.middleware";
 
 const { NODE_ENV } = process.env;

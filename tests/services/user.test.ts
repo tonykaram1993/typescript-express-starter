@@ -10,9 +10,6 @@ import userServices from "../../src/services/user.services";
 // Models
 import UserModel, { User } from "../../src/models/User.model";
 
-// Utils
-import makeError from "../../src/utils/error.util";
-
 describe("getUserByEmail", () => {
   test("getUserByEmail returns null if no user is found", async () => {
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
@@ -66,7 +63,6 @@ describe("getUserByRefreshToken", () => {
 describe("verifyUserByEmail", () => {
   test("verifyUserByEmail throws error if no user is found", async () => {
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
-    (makeError as jest.Mock).mockReturnValueOnce(new Error("error"));
 
     await expect(
       userServices.verifyUserByEmail("john@thedoes.com")
@@ -94,7 +90,6 @@ describe("verifyUserByEmail", () => {
 describe("verifyUserByRefreshToken", () => {
   test("verifyUserByRefreshToken throws error if no user is found", async () => {
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
-    (makeError as jest.Mock).mockReturnValueOnce(new Error("error"));
 
     await expect(
       userServices.verifyUserByRefreshToken("john@thedoes.com")
@@ -129,7 +124,6 @@ describe("checkEmailUniqueness", () => {
     };
 
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(user);
-    (makeError as jest.Mock).mockReturnValueOnce(new Error("error"));
 
     await expect(
       userServices.checkEmailUniqueness("john@thedoes.com")

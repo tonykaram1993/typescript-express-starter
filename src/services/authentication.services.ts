@@ -1,7 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import lodashOmit from "lodash/omit";
-import { StatusCodes } from "http-status-codes";
 
 // Types
 import DecodedJwtToken, {
@@ -13,7 +12,6 @@ import UserModel, { User } from "../models/User.model";
 
 // Utils
 import getEnvVariable from "../utils/getEnvVariable.util";
-import makeError from "../utils/error.util";
 
 // Configs
 import settingsConfig from "../configs/settings.config";
@@ -34,11 +32,7 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
   const [, token] = authorizationHeader.split("Bearer ");
 
   if (!token) {
-    throw makeError({
-      status: StatusCodes.INTERNAL_SERVER_ERROR,
-      message: stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER,
-      logMessage: "No token found in authorization header",
-    });
+    throw Error(stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER);
   }
 
   return token;
@@ -148,11 +142,7 @@ const checkUserPassword = (user: User, password: string) => {
   const isPasswordCorrect = bcrypt.compareSync(password, user.passwordHash);
 
   if (!isPasswordCorrect) {
-    throw makeError({
-      status: StatusCodes.NOT_FOUND,
-      message: stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
-      logMessage: `User with email ${user.email} has entered an incorrect password`,
-    });
+    throw Error(stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND);
   }
 };
 

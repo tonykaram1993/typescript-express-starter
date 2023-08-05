@@ -9,7 +9,6 @@ import lodashOmit from "lodash/omit";
 import bcrypt from "bcrypt";
 
 // Utils
-import makeError from "../../src/utils/error.util";
 import getEnvVariable from "../../src/utils/getEnvVariable.util";
 
 // Services
@@ -21,8 +20,6 @@ import { userPropertiesToOmitInTokens } from "../../src/validation/types/authent
 
 describe("getTokenFromAuthorizationHeader", () => {
   it("getTokenFromAuthorizationHeader throws an error authorization header is formatted incorrectly", () => {
-    (makeError as jest.Mock).mockReturnValueOnce(new Error("error"));
-
     expect(() =>
       authenticationServices.getTokenFromAuthorizationHeader("Bearer")
     ).toThrowError();
@@ -121,7 +118,6 @@ describe("checkUserPassowrd", () => {
     };
 
     (bcrypt.compareSync as jest.Mock).mockReturnValueOnce(false);
-    (makeError as jest.Mock).mockReturnValueOnce(new Error("error"));
 
     expect(() =>
       authenticationServices.checkUserPassword(user, "password")

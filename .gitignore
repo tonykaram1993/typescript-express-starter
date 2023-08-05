@@ -6,3 +6,4 @@ dist
 .env.docker
 .vscode
 logs
+yarn.lock

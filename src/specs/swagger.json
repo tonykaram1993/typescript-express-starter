@@ -26,12 +26,57 @@
   "paths": {
     "/": {
       "get": {
-        "tags": ["index"],
+        "tags": [
+          "index"
+        ],
         "summary": "Get an acknowledgment that the server is up and running",
         "operationId": "indexGet",
         "responses": {
           "204": {
             "description": "NO_CONTENT"
+          }
+        }
+      }
+    },
+    "/authentication/signup": {
+      "post": {
+        "tags": [
+          "authentication",
+          "signup",
+          "post"
+        ],
+        "summary": "Create a new account on the platform using an email and a password",
+        "operationId": "authenticationSignupPost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "confirmationPassword": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "john@thedoes.com",
+                "password": "myPassword",
+                "confirmationPassword": "myPassword"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Validation Error"
           }
         }
       }
