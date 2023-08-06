@@ -18,6 +18,8 @@ import authenticationServices from "../../src/services/authentication.services";
 import UserModel, { User } from "../../src/models/User.model";
 import { userPropertiesToOmitInTokens } from "../../src/validation/types/authentication/DecodedJwtToken.type";
 
+const envVariableReturn = "env";
+
 describe("getTokenFromAuthorizationHeader", () => {
   it("getTokenFromAuthorizationHeader throws an error authorization header is formatted incorrectly", () => {
     expect(() =>
@@ -56,10 +58,12 @@ describe("generateJwtToken", () => {
       refreshToken: "refreshToken",
     };
 
-    (getEnvVariable as jest.Mock).mockReturnValueOnce("env");
-    (jsonwebtoken.sign as jest.Mock).mockReturnValueOnce("jwtToken");
+    const token = "jwtToken";
 
-    expect(authenticationServices.generateJwtToken(user)).toEqual("jwtToken");
+    (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
+    (jsonwebtoken.sign as jest.Mock).mockReturnValueOnce(token);
+
+    expect(authenticationServices.generateJwtToken(user)).toEqual(token);
   });
 });
 
@@ -72,7 +76,7 @@ describe("generateRefreshToken", () => {
       refreshToken: "refreshToken",
     };
 
-    (getEnvVariable as jest.Mock).mockReturnValueOnce("env");
+    (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
     (jsonwebtoken.sign as jest.Mock).mockReturnValueOnce("refreshToken");
     (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(null);
 
@@ -101,14 +105,14 @@ describe("deleteRefreshToken", () => {
 
 describe("decodeToken", () => {
   it("decodeToken returns decodedToken", () => {
-    (getEnvVariable as jest.Mock).mockReturnValueOnce("env");
+    (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
     (jsonwebtoken.verify as jest.Mock).mockReturnValueOnce("decodedToken");
 
     expect(authenticationServices.decodeToken("token")).toEqual("decodedToken");
   });
 });
 
-describe("checkUserPassowrd", () => {
+describe("checkUserPassword", () => {
   it("checkUserPassword throws an error when password is incorrect", async () => {
     const user: User = {
       email: "john@thedoes.com",
