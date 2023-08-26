@@ -41,6 +41,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.7.5",
     "morgan": "^1.10.0",
+    "source-map-support": "^0.5.21",
     "swagger-ui-express": "^4.6.0",
     "winston": "^3.8.2",
     "zod": "^3.21.4"

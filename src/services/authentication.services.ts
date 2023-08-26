@@ -62,7 +62,7 @@ const generateJwtToken = (user: User) => {
   const data = getSafeUserData(user);
 
   const jwtToken = jsonwebtoken.sign(data, JWT_TOKEN_SECRET, {
-    expiresIn: settingsConfig.AUTHENTICATION.jwtTokenExpiry,
+    expiresIn: settingsConfig.AUTHENTICATION.JWT_TOKEN_EXPIRY,
   });
 
   return jwtToken;
@@ -85,7 +85,7 @@ const generateRefreshToken = async (user: User) => {
   };
 
   const refreshToken = jsonwebtoken.sign(data, JWT_REFRESH_TOKEN_SECRET, {
-    expiresIn: settingsConfig.AUTHENTICATION.refreshTokenExpiry,
+    expiresIn: settingsConfig.AUTHENTICATION.REFRESH_TOKEN_EXPIRY,
   });
 
   await UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });

@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import swaggerUI from "swagger-ui-express";
 import "dotenv/config";
+import "source-map-support/register";
 
 // Routes
 import indexRoute from "./routes/index.route";
@@ -17,6 +18,9 @@ import defaultsConfig from "./configs/defaults.config";
 // Utils
 import db from "./utils/db.util";
 import logger from "./utils/logger.util";
+
+// Middlewares
+import errorHandlerMiddleware from "./middlewares/errorHandler.middleware";
 
 db.connect();
 
@@ -37,6 +41,9 @@ if (NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {
     swaggerUI.setup(swaggerDocument, swaggerOptions)
   );
 }
+
+// Error handler (keep error handling middleware last, after other app.use() and routes calls)
+app.use(errorHandlerMiddleware);
 
 app.listen(PORT, () => {
   logger.log("info", `Server is running at https://localhost:${PORT}`);

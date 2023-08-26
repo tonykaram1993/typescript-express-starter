@@ -18,6 +18,7 @@
 1. Add rate limiter (https://github.com/express-rate-limit/express-rate-limit)
 1. Axios time of flight
 1. Docker (https://www.docker.com)
+1. Source map support (https://www.npmjs.com/package/source-map-support)
 1. Add authentication
 
 ## Abandonned Features

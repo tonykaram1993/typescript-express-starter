@@ -105,7 +105,7 @@ const checkEmailUniqueness = async (email: string) => {
 const addUser = async (email: string, password: string) => {
   await checkEmailUniqueness(email);
 
-  const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.saltRounds);
+  const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.SALT_ROUNDS);
   const hash = bcrypt.hashSync(password, salt);
 
   const user = await UserModel.create({ email, passwordHash: hash, salt });

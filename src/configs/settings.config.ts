@@ -13,9 +13,9 @@ const RATE_LIMITER = {
 };
 
 const AUTHENTICATION = {
-  jwtTokenExpiry: "1h",
-  refreshTokenExpiry: "7d",
-  saltRounds: 10,
+  JWT_TOKEN_EXPIRY: "1h",
+  REFRESH_TOKEN_EXPIRY: "7d",
+  SALT_ROUNDS: 10,
 };
 
 export default {

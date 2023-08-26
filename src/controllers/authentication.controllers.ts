@@ -45,6 +45,8 @@ const signup: RequestHandler = async (request, response) => {
     body: { email, password },
   } = request as z.infer<typeof authenticationSignupSchema>;
 
+  await userServices.checkEmailUniqueness(email);
+
   const user = await userServices.addUser(email, password);
 
   const safeUser = authenticationServices.getSafeUserData(user);
