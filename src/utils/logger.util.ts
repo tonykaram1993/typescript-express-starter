@@ -31,7 +31,14 @@ if (process.env.NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {
         format.errors({ stack: true }),
         format.colorize(),
         format.simple(),
-        format.splat()
+        format.splat(),
+        format.timestamp(),
+        format.printf(({ level, message, timestamp, stack }) => {
+          // Take only the hours, minutes, and seconds from the timestamp
+          const time = timestamp.slice(11, 19);
+
+          return `${time} ${level}: ${stack || message}`;
+        })
       ),
     })
   );

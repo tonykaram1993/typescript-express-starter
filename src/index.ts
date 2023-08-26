@@ -42,7 +42,8 @@ if (NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {
   );
 }
 
-// Error handler (keep error handling middleware last, after other app.use() and routes calls)
+// Error handler
+// ! (keep error handling middleware last, after other app.use() and routes calls)
 app.use(errorHandlerMiddleware);
 
 app.listen(PORT, () => {
