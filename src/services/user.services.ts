@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { StatusCodes } from "http-status-codes";
 
 // Models
 import UserModel from "../models/User.model";
@@ -6,6 +7,9 @@ import UserModel from "../models/User.model";
 // Configs
 import stringsConfig from "../configs/strings.config";
 import settingsConfig from "../configs/settings.config";
+
+// Utils
+import PlatformError from "../utils/error.util";
 
 /**
  * The function `getUserByEmail` retrieves a user from the database based on their email address.
@@ -62,7 +66,10 @@ const verifyUserByEmail = async (email: string) => {
   const user = await getUserByEmail(email);
 
   if (user === false) {
-    throw Error(stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND);
+    throw new PlatformError(
+      stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
+      StatusCodes.NOT_FOUND
+    );
   }
 
   return user;
@@ -79,7 +86,10 @@ const verifyUserByRefreshToken = async (refreshToken: string) => {
   const user = await getUserByRefreshToken(refreshToken);
 
   if (user === false) {
-    throw Error(stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED);
+    throw new PlatformError(
+      stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED,
+      StatusCodes.NOT_FOUND
+    );
   }
 
   return user;
@@ -96,7 +106,10 @@ const checkEmailUniqueness = async (email: string) => {
   const user = await getUserByEmail(email);
 
   if (user) {
-    throw Error(stringsConfig.ERRORS.EMAIL_ALREADY_EXISTS);
+    throw new PlatformError(
+      stringsConfig.ERRORS.EMAIL_ALREADY_EXISTS,
+      StatusCodes.NOT_FOUND
+    );
   }
 };
 

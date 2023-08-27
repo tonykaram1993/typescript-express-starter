@@ -3,12 +3,13 @@ import { StatusCodes } from "http-status-codes";
 
 // Utils
 import logger from "../utils/logger.util";
+import PlatformError from "../utils/error.util";
 
 // Configs
 import stringsConfig from "../configs/strings.config";
 
 const errorHandlerMiddleware: ErrorRequestHandler = (
-  error,
+  error: PlatformError | Error,
   request,
   response,
   next
@@ -19,9 +20,17 @@ const errorHandlerMiddleware: ErrorRequestHandler = (
 
   logger.error(error);
 
-  response
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .json({ message: stringsConfig.ERRORS.SOMETHING_WENT_WRONG });
+  const isPlatformError = error instanceof PlatformError;
+
+  const status = isPlatformError
+    ? error.statusCode
+    : StatusCodes.INTERNAL_SERVER_ERROR;
+
+  const message = isPlatformError
+    ? error.message
+    : stringsConfig.ERRORS.SOMETHING_WENT_WRONG;
+
+  response.status(status).json({ message });
 };
 
 export default errorHandlerMiddleware;

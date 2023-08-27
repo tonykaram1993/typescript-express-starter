@@ -1,6 +1,7 @@
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import lodash from "lodash";
+import { StatusCodes } from "http-status-codes";
 
 // Types
 import DecodedJwtToken, {
@@ -12,6 +13,7 @@ import UserModel, { User } from "../models/User.model";
 
 // Utils
 import getEnvVariable from "../utils/getEnvVariable.util";
+import PlatformError from "../utils/error.util";
 
 // Configs
 import settingsConfig from "../configs/settings.config";
@@ -32,7 +34,10 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
   const [, token] = authorizationHeader.split("Bearer ");
 
   if (!token) {
-    throw Error(stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER);
+    throw new PlatformError(
+      stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER,
+      StatusCodes.UNAUTHORIZED
+    );
   }
 
   return token;
@@ -141,7 +146,10 @@ const checkUserPassword = (user: User, password: string) => {
   const isPasswordCorrect = bcrypt.compareSync(password, user.passwordHash);
 
   if (!isPasswordCorrect) {
-    throw Error(stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND);
+    throw new PlatformError(
+      stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
+      StatusCodes.NOT_FOUND
+    );
   }
 };
 
