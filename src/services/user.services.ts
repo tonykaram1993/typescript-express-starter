@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
 
 // Models
-import UserModel from "../models/User.model";
+import UserModel, { User } from "../models/User.model";
 
 // Configs
 import stringsConfig from "../configs/strings.config";
@@ -76,6 +76,34 @@ const verifyUserByEmail = async (email: string) => {
 };
 
 /**
+ * The function updates the last login date of a user in the database and returns the updated user
+ * object.
+ *
+ * @param {User} user - The `user` parameter is an object of type `User` which represents a user in the
+ * system.
+ * @param {Date} lastLoginAt - The `lastLoginAt` parameter is a `Date` object that represents the date
+ * and time of the user's last login.
+ *
+ * @returns The function `updateUserLastLoginAt` returns either `false` if the user was not found and
+ * updated, or it returns the updated user object as a plain JavaScript object.
+ */
+const updateUserLastLoginAt = async (user: User, lastLoginAt: Date) => {
+  const updatedUser = await UserModel.findOneAndUpdate(
+    { email: user.email },
+    { lastLoginAt }
+  );
+
+  if (updatedUser === null) {
+    throw new PlatformError(
+      stringsConfig.ERRORS.NOT_FOUND_USER,
+      StatusCodes.NOT_FOUND
+    );
+  }
+
+  return updatedUser.toObject();
+};
+
+/**
  * The function verifies a user by their refresh token and throws an error if the user is not found.
  *
  * @param {string} refreshToken - A string representing the refresh token of the user.
@@ -138,6 +166,7 @@ export default {
   getUserByEmail,
   getUserByRefreshToken,
   verifyUserByEmail,
+  updateUserLastLoginAt,
   verifyUserByRefreshToken,
   checkEmailUniqueness,
   addUser,

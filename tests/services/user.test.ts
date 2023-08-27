@@ -3,6 +3,7 @@ jest.mock("../../src/utils/error.util");
 jest.mock("bcrypt");
 
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // Services
 import userServices from "../../src/services/user.services";
@@ -20,10 +21,12 @@ describe("getUserByEmail", () => {
 
   test("getUserByEmail returns user if user is found", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(user);
@@ -45,10 +48,12 @@ describe("getUserByRefreshToken", () => {
 
   test("getUserByRefreshToken returns user if user is found", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(user);
@@ -71,10 +76,12 @@ describe("verifyUserByEmail", () => {
 
   test("verifyUserByEmail returns user if user is found", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(user);
@@ -98,10 +105,12 @@ describe("verifyUserByRefreshToken", () => {
 
   test("verifyUserByRefreshToken returns user if user is found", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(user);
@@ -117,10 +126,12 @@ describe("verifyUserByRefreshToken", () => {
 describe("checkEmailUniqueness", () => {
   test("checkEmailUniqueness throws error if user is found", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.findOne as jest.Mock).mockReturnValueOnce(user);
@@ -144,10 +155,12 @@ describe("checkEmailUniqueness", () => {
 describe("addUser", () => {
   it("addUser returns added user", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.create as jest.Mock).mockReturnValueOnce(user);

@@ -7,6 +7,7 @@ jest.mock("jsonwebtoken");
 import jsonwebtoken from "jsonwebtoken";
 import lodashOmit from "lodash/omit";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // Utils
 import getEnvVariable from "../../src/utils/getEnvVariable.util";
@@ -37,10 +38,12 @@ describe("getTokenFromAuthorizationHeader", () => {
 describe("getSafeUserData", () => {
   it("getSafeUserData returns user with specific fields omitted", () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     const safeUser = lodashOmit(user, userPropertiesToOmitInTokens);
@@ -52,10 +55,12 @@ describe("getSafeUserData", () => {
 describe("generateJwtToken", () => {
   it("generateJetToken return jwtToken", () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     const token = "jwtToken";
@@ -70,10 +75,12 @@ describe("generateJwtToken", () => {
 describe("generateRefreshToken", () => {
   it("generateRefreshToken return refreshToken", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
@@ -89,10 +96,12 @@ describe("generateRefreshToken", () => {
 describe("deleteRefreshToken", () => {
   it("deleteRefreshToken returns nothing and does not throw an error", () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(null);
@@ -115,10 +124,12 @@ describe("decodeToken", () => {
 describe("checkUserPassword", () => {
   it("checkUserPassword throws an error when password is incorrect", async () => {
     const user: User = {
+      _id: new mongoose.Types.ObjectId(),
       email: "john@thedoes.com",
       passwordHash: "passwordHash",
       salt: "salt",
       refreshToken: "refreshToken",
+      __v: 0,
     };
 
     (bcrypt.compareSync as jest.Mock).mockReturnValueOnce(false);

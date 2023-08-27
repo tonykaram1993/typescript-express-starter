@@ -42,6 +42,7 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
 
   return token;
 };
+
 /**
  * The function `getSafeUserData` takes a user object and returns a decoded JWT token with certain
  * properties omitted.

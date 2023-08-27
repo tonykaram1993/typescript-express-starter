@@ -61,7 +61,7 @@
         "operationId": "indexGet",
         "responses": {
           "204": {
-            "description": "NO_CONTENT"
+            "description": "Ok - No Content"
           }
         }
       }
@@ -217,6 +217,28 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/authentication/signout": {
+      "get": {
+        "tags": [
+          "authentication",
+          "signout",
+          "post"
+        ],
+        "summary": "Signout of an already existing account on the platform using a refreshToken",
+        "operationId": "authenticationSignoutGet",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Something went wrong"
+          },
+          "204": {
+            "description": "Ok - No Content"
           }
         }
       }

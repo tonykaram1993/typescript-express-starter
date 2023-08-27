@@ -20,12 +20,18 @@ const signin: RequestHandler = async (request, response) => {
   } = request as z.infer<typeof authenticationSigninSchema>;
 
   const user = await userServices.verifyUserByEmail(email);
-
   authenticationServices.checkUserPassword(user, password);
 
-  const safeUser = authenticationServices.getSafeUserData(user);
-  const jwtToken = authenticationServices.generateJwtToken(user);
-  const refreshToken = await authenticationServices.generateRefreshToken(user);
+  const updatedUser = await userServices.updateUserLastLoginAt(
+    user,
+    new Date()
+  );
+
+  const safeUser = authenticationServices.getSafeUserData(updatedUser);
+  const jwtToken = authenticationServices.generateJwtToken(updatedUser);
+  const refreshToken = await authenticationServices.generateRefreshToken(
+    updatedUser
+  );
 
   response
     .status(StatusCodes.OK)
@@ -37,7 +43,7 @@ const signout: RequestHandler = async (request, response) => {
 
   await authenticationServices.deleteRefreshToken(user);
 
-  response.status(StatusCodes.NO_CONTENT);
+  response.status(StatusCodes.NO_CONTENT).end();
 };
 
 const signup: RequestHandler = async (request, response) => {
