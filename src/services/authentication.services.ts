@@ -1,6 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import lodashOmit from "lodash/omit";
+import lodash from "lodash";
 
 // Types
 import DecodedJwtToken, {
@@ -37,7 +37,6 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
 
   return token;
 };
-
 /**
  * The function `getSafeUserData` takes a user object and returns a decoded JWT token with certain
  * properties omitted.
@@ -47,7 +46,7 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
  * @returns a decoded JWT token.
  */
 const getSafeUserData = (user: User): DecodedJwtToken =>
-  lodashOmit(user, userPropertiesToOmitInTokens);
+  lodash.omit(user, userPropertiesToOmitInTokens);
 
 /**
  * The function generates a JWT token using a user's data and a secret key.

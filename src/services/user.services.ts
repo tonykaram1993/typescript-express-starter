@@ -20,7 +20,11 @@ const getUserByEmail = async (email: string) => {
     email,
   });
 
-  return user;
+  if (user === null) {
+    return false;
+  }
+
+  return user.toObject();
 };
 
 /**
@@ -38,7 +42,11 @@ const getUserByRefreshToken = async (refreshToken: string) => {
     refreshToken,
   });
 
-  return user;
+  if (user === null) {
+    return false;
+  }
+
+  return user.toObject();
 };
 
 /**
@@ -53,7 +61,7 @@ const getUserByRefreshToken = async (refreshToken: string) => {
 const verifyUserByEmail = async (email: string) => {
   const user = await getUserByEmail(email);
 
-  if (!user) {
+  if (user === false) {
     throw Error(stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND);
   }
 
@@ -70,7 +78,7 @@ const verifyUserByEmail = async (email: string) => {
 const verifyUserByRefreshToken = async (refreshToken: string) => {
   const user = await getUserByRefreshToken(refreshToken);
 
-  if (!user) {
+  if (user === false) {
     throw Error(stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED);
   }
 
@@ -110,7 +118,7 @@ const addUser = async (email: string, password: string) => {
 
   const user = await UserModel.create({ email, passwordHash: hash, salt });
 
-  return user;
+  return user.toObject();
 };
 
 export default {

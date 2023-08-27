@@ -16,6 +16,7 @@ const AUTHENTICATION = {
   JWT_TOKEN_EXPIRY: "1h",
   REFRESH_TOKEN_EXPIRY: "7d",
   SALT_ROUNDS: 10,
+  PASSWORD_MIN_LENGTH: 8,
 };
 
 export default {

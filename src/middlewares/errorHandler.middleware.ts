@@ -4,6 +4,9 @@ import { StatusCodes } from "http-status-codes";
 // Utils
 import logger from "../utils/logger.util";
 
+// Configs
+import stringsConfig from "../configs/strings.config";
+
 const errorHandlerMiddleware: ErrorRequestHandler = (
   error,
   request,
@@ -14,11 +17,11 @@ const errorHandlerMiddleware: ErrorRequestHandler = (
     return next(error);
   }
 
-  const { message } = error;
-
   logger.error(error);
 
-  response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message });
+  response
+    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json({ message: stringsConfig.ERRORS.SOMETHING_WENT_WRONG });
 };
 
 export default errorHandlerMiddleware;

@@ -4,6 +4,7 @@ const ERRORS = {
   UNAUTHORIZED: "Unauthorized",
   FORBIDDEN: "Forbidden",
   NOT_FOUND: "Not Found",
+  NOT_FOUND_USER: "User not found",
   INTERNAL_SERVER_ERROR: "Internal Server Error",
   BAD_REQUEST: "Bad Request",
   EMAIL_PASSWORD_NOT_FOUND:
