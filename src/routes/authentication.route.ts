@@ -9,12 +9,12 @@ import authenticatedRouter from "../routers/authenticated.router";
 import tryCatch from "../utils/tryCatch.util";
 
 // Schemas
-import authenticationRefreshSchema from "../validation/schemas/authentication/refresh.schema";
 import authenticationSignupSchema from "../validation/schemas/authentication/signup.schema";
 import authenticationSigninSchema from "../validation/schemas/authentication/signin.schema";
 
 // Controllers
 import authenticationControllers from "../controllers/authentication.controllers";
+import validateRefreshToken from "../middlewares/validateRefreshToken.middleware";
 
 unauthenticatedRouter.post(
   "/signin",
@@ -28,7 +28,7 @@ unauthenticatedRouter.post(
 );
 unauthenticatedRouter.post(
   "/refresh",
-  tryCatch(validateRequestMiddleware(authenticationRefreshSchema)),
+  tryCatch(validateRefreshToken),
   tryCatch(authenticationControllers.refresh)
 );
 

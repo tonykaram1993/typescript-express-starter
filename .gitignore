@@ -7,3 +7,4 @@ dist
 .vscode
 logs
 yarn.lock
+.DS_Store

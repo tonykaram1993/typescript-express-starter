@@ -93,7 +93,7 @@ const generateRefreshToken = async (user: User) => {
     expiresIn: settingsConfig.AUTHENTICATION.REFRESH_TOKEN_EXPIRY,
   });
 
-  await UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });
+  UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });
 
   return refreshToken;
 };

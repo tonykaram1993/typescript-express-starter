@@ -5,7 +5,6 @@ import { StatusCodes } from "http-status-codes";
 // Schemas
 import authenticationSigninSchema from "../validation/schemas/authentication/signin.schema";
 import authenticationSignupSchema from "../validation/schemas/authentication/signup.schema";
-import authenticationRefreshSchema from "../validation/schemas/authentication/refresh.schema";
 
 // Types
 import DecodedJwtToken from "../validation/types/authentication/DecodedJwtToken.type";
@@ -41,7 +40,7 @@ const signin: RequestHandler = async (request, response) => {
 const signout: RequestHandler = async (request, response) => {
   const user = request.user as DecodedJwtToken;
 
-  await authenticationServices.deleteRefreshToken(user);
+  authenticationServices.deleteRefreshToken(user);
 
   response.status(StatusCodes.NO_CONTENT).end();
 };
@@ -63,9 +62,7 @@ const signup: RequestHandler = async (request, response) => {
 };
 
 const refresh: RequestHandler = async (request, response) => {
-  const {
-    body: { refreshToken },
-  } = request as z.infer<typeof authenticationRefreshSchema>;
+  const refreshToken = request.headers.refreshToken as string;
 
   const user = await userServices.verifyUserByRefreshToken(refreshToken);
 

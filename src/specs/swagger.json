@@ -242,6 +242,80 @@
           }
         }
       }
+    },
+    "/authentication/refresh": {
+      "post": {
+        "tags": [
+          "authentication",
+          "refresh",
+          "post"
+        ],
+        "summary": "Get a new jwtToken when the old jwtToken is expired or lost using the refreshToken for an existing account on the platform",
+        "operationId": "authenticationRefreshPost",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "john@thedoes.com",
+                "password": "myPassword"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Something went wrong"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    "jwtToken": {
+                      "$ref": "#/components/schemas/Token"
+                    },
+                    "refreshToken": {
+                      "$ref": "#/components/schemas/Token"
+                    }
+                  }
+                },
+                "example": {
+                  "user": {
+                    "email": "email@email.com",
+                    "_id": "64eb8007ee20aa2d70569a58",
+                    "createdAt": "2023-08-27T16:55:35.750Z",
+                    "updatedAt": "2023-08-27T16:55:35.750Z",
+                    "__v": 0
+                  },
+                  "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
