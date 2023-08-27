@@ -38,8 +38,6 @@ const authenticationMiddleware: RequestHandler = (request, response, next) => {
   const authorizationToken =
     authenticationServices.getTokenFromAuthorizationHeader(authorizationHeader);
 
-  // TODO RSNS  TK - invalidate the jwt token when user logs out
-
   const decodedAuthorizationToken =
     authenticationServices.decodeToken(authorizationToken);
 
