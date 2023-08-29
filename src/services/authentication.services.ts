@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 
 // Types
 import DecodedJwtToken, {
-  userPropertiesToOmitInTokens,
+    userPropertiesToOmitInTokens,
 } from "../validation/types/authentication/DecodedJwtToken.type";
 
 // Models
@@ -31,16 +31,16 @@ import stringsConfig from "../configs/strings.config";
  * @returns the token extracted from the authorization header.
  */
 const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
-  const [, token] = authorizationHeader.split("Bearer ");
+    const [, token] = authorizationHeader.split("Bearer ");
 
-  if (!token) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER,
-      StatusCodes.UNAUTHORIZED
-    );
-  }
+    if (!token) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER,
+            StatusCodes.UNAUTHORIZED
+        );
+    }
 
-  return token;
+    return token;
 };
 
 /**
@@ -52,7 +52,7 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
  * @returns a decoded JWT token.
  */
 const getSafeUserData = (user: User): DecodedJwtToken =>
-  lodash.omit(user, userPropertiesToOmitInTokens);
+    lodash.omit(user, userPropertiesToOmitInTokens);
 
 /**
  * The function generates a JWT token using a user's data and a secret key.
@@ -62,15 +62,15 @@ const getSafeUserData = (user: User): DecodedJwtToken =>
  * @returns The function `generateJwtToken` returns a JSON Web Token (JWT) token.
  */
 const generateJwtToken = (user: User) => {
-  const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
+    const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
 
-  const data = getSafeUserData(user);
+    const data = getSafeUserData(user);
 
-  const jwtToken = jsonwebtoken.sign(data, JWT_TOKEN_SECRET, {
-    expiresIn: settingsConfig.AUTHENTICATION.JWT_TOKEN_EXPIRY,
-  });
+    const jwtToken = jsonwebtoken.sign(data, JWT_TOKEN_SECRET, {
+        expiresIn: settingsConfig.AUTHENTICATION.JWT_TOKEN_EXPIRY,
+    });
 
-  return jwtToken;
+    return jwtToken;
 };
 
 /**
@@ -82,20 +82,20 @@ const generateJwtToken = (user: User) => {
  * @returns the refresh token.
  */
 const generateRefreshToken = async (user: User) => {
-  const JWT_REFRESH_TOKEN_SECRET = getEnvVariable("JWT_REFRESH_TOKEN_SECRET");
+    const JWT_REFRESH_TOKEN_SECRET = getEnvVariable("JWT_REFRESH_TOKEN_SECRET");
 
-  const data = {
-    ...getSafeUserData(user),
-    createdAt: Date.now(),
-  };
+    const data = {
+        ...getSafeUserData(user),
+        createdAt: Date.now(),
+    };
 
-  const refreshToken = jsonwebtoken.sign(data, JWT_REFRESH_TOKEN_SECRET, {
-    expiresIn: settingsConfig.AUTHENTICATION.REFRESH_TOKEN_EXPIRY,
-  });
+    const refreshToken = jsonwebtoken.sign(data, JWT_REFRESH_TOKEN_SECRET, {
+        expiresIn: settingsConfig.AUTHENTICATION.REFRESH_TOKEN_EXPIRY,
+    });
 
-  UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });
+    UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });
 
-  return refreshToken;
+    return refreshToken;
 };
 
 /**
@@ -105,14 +105,14 @@ const generateRefreshToken = async (user: User) => {
  * represents the decoded JSON Web Token (JWT) for a user.
  */
 const deleteRefreshToken = async (user: DecodedJwtToken) => {
-  await UserModel.findOneAndUpdate(
-    { email: user.email },
-    {
-      $unset: {
-        refreshToken: "",
-      },
-    }
-  );
+    await UserModel.findOneAndUpdate(
+        { email: user.email },
+        {
+            $unset: {
+                refreshToken: "",
+            },
+        }
+    );
 };
 
 /**
@@ -125,14 +125,14 @@ const deleteRefreshToken = async (user: DecodedJwtToken) => {
  * `DecodedJwtToken`.
  */
 const decodeToken = (token: string) => {
-  const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
+    const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
 
-  const decodedToken = jsonwebtoken.verify(
-    token,
-    JWT_TOKEN_SECRET
-  ) as DecodedJwtToken;
+    const decodedToken = jsonwebtoken.verify(
+        token,
+        JWT_TOKEN_SECRET
+    ) as DecodedJwtToken;
 
-  return decodedToken;
+    return decodedToken;
 };
 
 /**
@@ -144,22 +144,22 @@ const decodeToken = (token: string) => {
  * by the user.
  */
 const checkUserPassword = (user: User, password: string) => {
-  const isPasswordCorrect = bcrypt.compareSync(password, user.passwordHash);
+    const isPasswordCorrect = bcrypt.compareSync(password, user.passwordHash);
 
-  if (!isPasswordCorrect) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
-      StatusCodes.NOT_FOUND
-    );
-  }
+    if (!isPasswordCorrect) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
+            StatusCodes.NOT_FOUND
+        );
+    }
 };
 
 export default {
-  getTokenFromAuthorizationHeader,
-  decodeToken,
-  checkUserPassword,
-  generateJwtToken,
-  generateRefreshToken,
-  deleteRefreshToken,
-  getSafeUserData,
+    getTokenFromAuthorizationHeader,
+    decodeToken,
+    checkUserPassword,
+    generateJwtToken,
+    generateRefreshToken,
+    deleteRefreshToken,
+    getSafeUserData,
 };

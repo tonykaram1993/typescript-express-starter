@@ -1,6 +1,6 @@
 declare namespace Express {
-  interface Request {
-    validatedData?: any;
-    user?: any;
-  }
+    interface Request {
+        validatedData?: any;
+        user?: any;
+    }
 }

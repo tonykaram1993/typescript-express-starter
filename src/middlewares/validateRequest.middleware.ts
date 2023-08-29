@@ -21,22 +21,22 @@ import stringsConfig from "../configs/strings.config";
  * `params`.
  */
 const validateRequestMiddleware =
-  (schema: AnyZodObject): RequestHandler =>
-  (request, response, next) => {
-    const { body, query, params } = request;
+    (schema: AnyZodObject): RequestHandler =>
+    (request, response, next) => {
+        const { body, query, params } = request;
 
-    const validation = schema.safeParse({ body, query, params });
+        const validation = schema.safeParse({ body, query, params });
 
-    if (!validation.success) {
-      return response.status(StatusCodes.BAD_REQUEST).json({
-        message: stringsConfig.ERRORS.VALIDATION,
-        errors: validation.error,
-      });
-    }
+        if (!validation.success) {
+            return response.status(StatusCodes.BAD_REQUEST).json({
+                message: stringsConfig.ERRORS.VALIDATION,
+                errors: validation.error,
+            });
+        }
 
-    request.validatedData = validation.data;
+        request.validatedData = validation.data;
 
-    next();
-  };
+        next();
+    };
 
 export default validateRequestMiddleware;

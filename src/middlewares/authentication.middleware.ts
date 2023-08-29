@@ -27,23 +27,25 @@ import authenticationServices from "../services/authentication.services";
  * the route handler function.
  */
 const authenticationMiddleware: RequestHandler = (request, response, next) => {
-  const { authorization: authorizationHeader } = request.headers;
+    const { authorization: authorizationHeader } = request.headers;
 
-  if (authorizationHeader === undefined) {
-    return response.status(StatusCodes.UNAUTHORIZED).json({
-      message: stringsConfig.ERRORS.UNAUTHORIZED,
-    });
-  }
+    if (authorizationHeader === undefined) {
+        return response.status(StatusCodes.UNAUTHORIZED).json({
+            message: stringsConfig.ERRORS.UNAUTHORIZED,
+        });
+    }
 
-  const authorizationToken =
-    authenticationServices.getTokenFromAuthorizationHeader(authorizationHeader);
+    const authorizationToken =
+        authenticationServices.getTokenFromAuthorizationHeader(
+            authorizationHeader
+        );
 
-  const decodedAuthorizationToken =
-    authenticationServices.decodeToken(authorizationToken);
+    const decodedAuthorizationToken =
+        authenticationServices.decodeToken(authorizationToken);
 
-  request.user = decodedAuthorizationToken;
+    request.user = decodedAuthorizationToken;
 
-  next();
+    next();
 };
 
 export default authenticationMiddleware;

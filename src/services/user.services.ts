@@ -20,15 +20,15 @@ import PlatformError from "../utils/error.util";
  * @returns the user object that is found in the database based on the provided email.
  */
 const getUserByEmail = async (email: string) => {
-  const user = await UserModel.findOne({
-    email,
-  });
+    const user = await UserModel.findOne({
+        email,
+    });
 
-  if (user === null) {
-    return false;
-  }
+    if (user === null) {
+        return false;
+    }
 
-  return user.toObject();
+    return user.toObject();
 };
 
 /**
@@ -42,15 +42,15 @@ const getUserByEmail = async (email: string) => {
  * @returns the user object that is found in the database based on the provided refresh token.
  */
 const getUserByRefreshToken = async (refreshToken: string) => {
-  const user = await UserModel.findOne({
-    refreshToken,
-  });
+    const user = await UserModel.findOne({
+        refreshToken,
+    });
 
-  if (user === null) {
-    return false;
-  }
+    if (user === null) {
+        return false;
+    }
 
-  return user.toObject();
+    return user.toObject();
 };
 
 /**
@@ -63,16 +63,16 @@ const getUserByRefreshToken = async (refreshToken: string) => {
  * @returns The function `verifyUserByEmail` returns the user object if it exists.
  */
 const verifyUserByEmail = async (email: string) => {
-  const user = await getUserByEmail(email);
+    const user = await getUserByEmail(email);
 
-  if (user === false) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
-      StatusCodes.NOT_FOUND
-    );
-  }
+    if (user === false) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
+            StatusCodes.NOT_FOUND
+        );
+    }
 
-  return user;
+    return user;
 };
 
 /**
@@ -88,19 +88,19 @@ const verifyUserByEmail = async (email: string) => {
  * updated, or it returns the updated user object as a plain JavaScript object.
  */
 const updateUserLastLoginAt = async (user: User, lastLoginAt: Date) => {
-  const updatedUser = await UserModel.findOneAndUpdate(
-    { email: user.email },
-    { lastLoginAt }
-  );
-
-  if (updatedUser === null) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.NOT_FOUND_USER,
-      StatusCodes.NOT_FOUND
+    const updatedUser = await UserModel.findOneAndUpdate(
+        { email: user.email },
+        { lastLoginAt }
     );
-  }
 
-  return updatedUser.toObject();
+    if (updatedUser === null) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.NOT_FOUND_USER,
+            StatusCodes.NOT_FOUND
+        );
+    }
+
+    return updatedUser.toObject();
 };
 
 /**
@@ -111,16 +111,16 @@ const updateUserLastLoginAt = async (user: User, lastLoginAt: Date) => {
  * @returns the user object if it exists.
  */
 const verifyUserByRefreshToken = async (refreshToken: string) => {
-  const user = await getUserByRefreshToken(refreshToken);
+    const user = await getUserByRefreshToken(refreshToken);
 
-  if (user === false) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED,
-      StatusCodes.NOT_FOUND
-    );
-  }
+    if (user === false) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED,
+            StatusCodes.NOT_FOUND
+        );
+    }
 
-  return user;
+    return user;
 };
 
 /**
@@ -130,15 +130,15 @@ const verifyUserByRefreshToken = async (refreshToken: string) => {
  * @param {string} email - The `email` parameter is a string that represents the email address to be
  * checked for uniqueness.
  */
-const checkEmailUniqueness = async (email: string) => {
-  const user = await getUserByEmail(email);
+const verifyEmailUniqueness = async (email: string) => {
+    const user = await getUserByEmail(email);
 
-  if (user) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.EMAIL_ALREADY_EXISTS,
-      StatusCodes.NOT_FOUND
-    );
-  }
+    if (user) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.EMAIL_ALREADY_EXISTS,
+            StatusCodes.NOT_FOUND
+        );
+    }
 };
 
 /**
@@ -152,22 +152,22 @@ const checkEmailUniqueness = async (email: string) => {
  * @returns The function `addUser` is returning a Promise that resolves to a user object.
  */
 const addUser = async (email: string, password: string) => {
-  await checkEmailUniqueness(email);
+    await verifyEmailUniqueness(email);
 
-  const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.SALT_ROUNDS);
-  const hash = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.SALT_ROUNDS);
+    const hash = bcrypt.hashSync(password, salt);
 
-  const user = await UserModel.create({ email, passwordHash: hash, salt });
+    const user = await UserModel.create({ email, passwordHash: hash, salt });
 
-  return user.toObject();
+    return user.toObject();
 };
 
 export default {
-  getUserByEmail,
-  getUserByRefreshToken,
-  verifyUserByEmail,
-  updateUserLastLoginAt,
-  verifyUserByRefreshToken,
-  checkEmailUniqueness,
-  addUser,
+    getUserByEmail,
+    getUserByRefreshToken,
+    verifyUserByEmail,
+    updateUserLastLoginAt,
+    verifyUserByRefreshToken,
+    verifyEmailUniqueness,
+    addUser,
 };

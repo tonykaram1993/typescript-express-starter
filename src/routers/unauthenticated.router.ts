@@ -13,7 +13,7 @@ import rateLimiter from "../utils/limiter.util";
 const { NODE_ENV } = process.env;
 
 const router = Router({
-  mergeParams: true,
+    mergeParams: true,
 });
 
 // Cors
@@ -24,9 +24,10 @@ router.use(morgan("dev"));
 
 // Helmet (security headers)
 router.use(
-  helmet({
-    contentSecurityPolicy: NODE_ENV === globalsConfig.ENVIRONMENTS.PRODUCTION,
-  })
+    helmet({
+        contentSecurityPolicy:
+            NODE_ENV === globalsConfig.ENVIRONMENTS.PRODUCTION,
+    })
 );
 
 // Rate limiter

@@ -16,30 +16,34 @@ import authenticationSigninSchema from "../validation/schemas/authentication/sig
 import authenticationControllers from "../controllers/authentication.controllers";
 import validateRefreshToken from "../middlewares/validateRefreshToken.middleware";
 
+// Unauthenticated Routes
 unauthenticatedRouter.post(
-  "/signin",
-  tryCatch(validateRequestMiddleware(authenticationSigninSchema)),
-  tryCatch(authenticationControllers.signin)
-);
-unauthenticatedRouter.post(
-  "/signup",
-  tryCatch(validateRequestMiddleware(authenticationSignupSchema)),
-  tryCatch(authenticationControllers.signup)
-);
-unauthenticatedRouter.post(
-  "/refresh",
-  tryCatch(validateRefreshToken),
-  tryCatch(authenticationControllers.refresh)
+    "/signin",
+    tryCatch(validateRequestMiddleware(authenticationSigninSchema)),
+    tryCatch(authenticationControllers.signin)
 );
 
+unauthenticatedRouter.post(
+    "/signup",
+    tryCatch(validateRequestMiddleware(authenticationSignupSchema)),
+    tryCatch(authenticationControllers.signup)
+);
+
+unauthenticatedRouter.post(
+    "/refresh",
+    tryCatch(validateRefreshToken),
+    tryCatch(authenticationControllers.refresh)
+);
+
+// Authenticated Routes
 authenticatedRouter.get(
-  "/signout",
-  tryCatch(authenticationControllers.signout)
+    "/signout",
+    tryCatch(authenticationControllers.signout)
 );
 
 const authenticationRoutes = {
-  unauthenticatedRouter,
-  authenticatedRouter,
+    unauthenticatedRouter,
+    authenticatedRouter,
 };
 
 export default authenticationRoutes;

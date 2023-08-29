@@ -1,14 +1,14 @@
 import { User } from "../../../models/User.model";
 
 export const userPropertiesToOmitInTokens = [
-  "passwordHash",
-  "refreshToken",
-  "salt",
+    "passwordHash",
+    "refreshToken",
+    "salt",
 ] as const;
 
 type DecodedJwtToken = Omit<
-  User,
-  (typeof userPropertiesToOmitInTokens)[number]
+    User,
+    (typeof userPropertiesToOmitInTokens)[number]
 >;
 
 export default DecodedJwtToken;

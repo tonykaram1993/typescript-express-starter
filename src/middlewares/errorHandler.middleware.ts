@@ -9,28 +9,28 @@ import PlatformError from "../utils/error.util";
 import stringsConfig from "../configs/strings.config";
 
 const errorHandlerMiddleware: ErrorRequestHandler = (
-  error: PlatformError | Error,
-  request,
-  response,
-  next
+    error: PlatformError | Error,
+    request,
+    response,
+    next
 ) => {
-  if (response.headersSent) {
-    return next(error);
-  }
+    if (response.headersSent) {
+        return next(error);
+    }
 
-  logger.error(error);
+    logger.error(error);
 
-  const isPlatformError = error instanceof PlatformError;
+    const isPlatformError = error instanceof PlatformError;
 
-  const status = isPlatformError
-    ? error.statusCode
-    : StatusCodes.INTERNAL_SERVER_ERROR;
+    const status = isPlatformError
+        ? error.statusCode
+        : StatusCodes.INTERNAL_SERVER_ERROR;
 
-  const message = isPlatformError
-    ? error.message
-    : stringsConfig.ERRORS.SOMETHING_WENT_WRONG;
+    const message = isPlatformError
+        ? error.message
+        : stringsConfig.ERRORS.SOMETHING_WENT_WRONG;
 
-  response.status(status).json({ message });
+    response.status(status).json({ message });
 };
 
 export default errorHandlerMiddleware;

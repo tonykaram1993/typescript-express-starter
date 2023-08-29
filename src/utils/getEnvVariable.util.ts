@@ -17,16 +17,16 @@ import PlatformError from "./error.util";
  * name.
  */
 const getEnvVariable = (name: string) => {
-  const envVariable = process.env[name];
+    const envVariable = process.env[name];
 
-  if (envVariable === undefined) {
-    throw new PlatformError(
-      stringsConfig.ERRORS.SOMETHING_WENT_WRONG,
-      StatusCodes.INTERNAL_SERVER_ERROR
-    );
-  }
+    if (envVariable === undefined) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.SOMETHING_WENT_WRONG,
+            StatusCodes.INTERNAL_SERVER_ERROR
+        );
+    }
 
-  return envVariable;
+    return envVariable;
 };
 
 export default getEnvVariable;

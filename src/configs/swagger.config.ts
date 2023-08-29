@@ -1,10 +1,10 @@
 import { SwaggerOptions } from "swagger-ui-express";
 
 const swaggerOptions: SwaggerOptions = {
-  swaggerOptions: {
-    persistAuthorization: true,
-    tryItOutEnabled: true,
-  },
+    swaggerOptions: {
+        persistAuthorization: true,
+        tryItOutEnabled: true,
+    },
 };
 
 export default swaggerOptions;
