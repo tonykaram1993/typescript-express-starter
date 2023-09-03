@@ -18,6 +18,12 @@ import PlatformError from "../utils/error.util";
 // Configs
 import settingsConfig from "../configs/settings.config";
 import stringsConfig from "../configs/strings.config";
+import globalsConfig from "../configs/globals.config";
+
+const [JWT_TOKEN_SECRET, JWT_REFRESH_TOKEN_SECRET] = getEnvVariable.multiple([
+    globalsConfig.ENV_VARIABLES.JWT_TOKEN_SECRET,
+    globalsConfig.ENV_VARIABLES.JWT_REFRESH_TOKEN_SECRET,
+]);
 
 /**
  * The function `getTokenFromAuthorizationHeader` extracts the token from the authorization header and
@@ -62,8 +68,6 @@ const getSafeUserData = (user: User): DecodedJwtToken =>
  * @returns The function `generateJwtToken` returns a JSON Web Token (JWT) token.
  */
 const generateJwtToken = (user: User) => {
-    const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
-
     const data = getSafeUserData(user);
 
     const jwtToken = jsonwebtoken.sign(data, JWT_TOKEN_SECRET, {
@@ -82,8 +86,6 @@ const generateJwtToken = (user: User) => {
  * @returns the refresh token.
  */
 const generateRefreshToken = async (user: User) => {
-    const JWT_REFRESH_TOKEN_SECRET = getEnvVariable("JWT_REFRESH_TOKEN_SECRET");
-
     const data = {
         ...getSafeUserData(user),
         createdAt: Date.now(),
@@ -125,8 +127,6 @@ const deleteRefreshToken = async (user: DecodedJwtToken) => {
  * `DecodedJwtToken`.
  */
 const decodeToken = (token: string) => {
-    const JWT_TOKEN_SECRET = getEnvVariable("JWT_TOKEN_SECRET");
-
     const decodedToken = jsonwebtoken.verify(
         token,
         JWT_TOKEN_SECRET

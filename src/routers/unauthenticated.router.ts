@@ -9,12 +9,13 @@ import globalsConfig from "../configs/globals.config";
 
 // Utils
 import rateLimiter from "../utils/limiter.util";
-
-const { NODE_ENV } = process.env;
+import getEnvVariable from "../utils/getEnvVariable.util";
 
 const router = Router({
     mergeParams: true,
 });
+
+const NODE_ENV = getEnvVariable.single(globalsConfig.ENV_VARIABLES.NODE_ENV);
 
 // Cors
 router.use(cors());

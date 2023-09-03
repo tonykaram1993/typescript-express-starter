@@ -12,19 +12,21 @@ import swaggerDocument from "./specs/swagger.json";
 
 // Configs
 import swaggerOptions from "./configs/swagger.config";
-import defaultsConfig from "./configs/defaults.config";
+import globalsConfig from "./configs/globals.config";
 
 // Utils
 import db from "./utils/db.util";
 import logger from "./utils/logger.util";
+import getEnvVariable from "./utils/getEnvVariable.util";
 
 // Middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandler.middleware";
 
+const PORT = getEnvVariable.single(globalsConfig.ENV_VARIABLES.PORT);
+
 db.connect();
 
 const app: Express = express();
-const { PORT } = process.env || defaultsConfig.APP.PORT;
 
 // Routes
 app.use(indexRoutes.unauthenticatedRouter);

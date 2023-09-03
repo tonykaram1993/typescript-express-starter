@@ -4,6 +4,11 @@ import { createLogger, format, transports } from "winston";
 import globalsConfig from "../configs/globals.config";
 import settingsConfig from "../configs/settings.config";
 
+// Utils
+import getEnvVariable from "./getEnvVariable.util";
+
+const NODE_ENV = getEnvVariable.single(globalsConfig.ENV_VARIABLES.NODE_ENV);
+
 const logger = createLogger({
     level: "info",
     format: format.combine(
@@ -24,7 +29,7 @@ const logger = createLogger({
 
 // If we're not in production then **ALSO** log to the `console` with the
 // colorized simple format.
-if (process.env.NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {
+if (NODE_ENV !== globalsConfig.ENVIRONMENTS.PRODUCTION) {
     logger.add(
         new transports.Console({
             format: format.combine(

@@ -67,7 +67,9 @@ describe("generateJwtToken", () => {
 
         const token = "jwtToken";
 
-        (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
+        (getEnvVariable.single as jest.Mock).mockReturnValueOnce(
+            envVariableReturn
+        );
         (jsonwebtoken.sign as jest.Mock).mockReturnValueOnce(token);
 
         expect(authenticationServices.generateJwtToken(user)).toEqual(token);
@@ -85,7 +87,9 @@ describe("generateRefreshToken", () => {
             __v: 0,
         };
 
-        (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
+        (getEnvVariable.single as jest.Mock).mockReturnValueOnce(
+            envVariableReturn
+        );
         (jsonwebtoken.sign as jest.Mock).mockReturnValueOnce("refreshToken");
         (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(null);
 
@@ -118,7 +122,9 @@ describe("deleteRefreshToken", () => {
 
 describe("decodeToken", () => {
     it("decodeToken returns decodedToken", () => {
-        (getEnvVariable as jest.Mock).mockReturnValueOnce(envVariableReturn);
+        (getEnvVariable.single as jest.Mock).mockReturnValueOnce(
+            envVariableReturn
+        );
         (jsonwebtoken.verify as jest.Mock).mockReturnValueOnce("decodedToken");
 
         expect(authenticationServices.decodeToken("token")).toEqual(

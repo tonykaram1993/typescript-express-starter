@@ -3,6 +3,9 @@ import { StatusCodes } from "http-status-codes";
 // Configs
 import stringsConfig from "../configs/strings.config";
 
+// Types
+import EnvVariablesEnum from "../validation/types/EnvVariables.type";
+
 // Utils
 import PlatformError from "./error.util";
 
@@ -16,7 +19,7 @@ import PlatformError from "./error.util";
  * @returns The function `getEnvVariable` returns the value of the environment variable with the given
  * name.
  */
-const getEnvVariable = (name: string) => {
+const single = (name: EnvVariablesEnum) => {
     const envVariable = process.env[name];
 
     if (envVariable === undefined) {
@@ -29,4 +32,7 @@ const getEnvVariable = (name: string) => {
     return envVariable;
 };
 
-export default getEnvVariable;
+const multiple = (names: EnvVariablesEnum[]) =>
+    names.map((name) => single(name));
+
+export default { single, multiple };

@@ -2,7 +2,17 @@ import mongoose, { ConnectOptions } from "mongoose";
 
 // Utils
 import logger from "./logger.util";
+import getEnvVariable from "./getEnvVariable.util";
+
+// Configs
 import stringsConfig from "../configs/strings.config";
+import globalsConfig from "../configs/globals.config";
+
+const [MONGODB_HOST, MONGODB_PORT, MONGODB_DATABASE] = getEnvVariable.multiple([
+    globalsConfig.ENV_VARIABLES.MONGODB_HOST,
+    globalsConfig.ENV_VARIABLES.MONGODB_PORT,
+    globalsConfig.ENV_VARIABLES.MONGODB_DATABASE,
+]);
 
 mongoose.connection.on("connected", () => {
     logger.info(
@@ -11,8 +21,6 @@ mongoose.connection.on("connected", () => {
 });
 
 const getMongoUrl = () => {
-    const { MONGODB_HOST, MONGODB_PORT, MONGODB_DATABASE } = process.env;
-
     return `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DATABASE}`;
 };
 

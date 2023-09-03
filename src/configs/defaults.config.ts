@@ -6,10 +6,6 @@ import stringsConfig from "./strings.config";
 const ERROR = {
     STATUS_CODE: 500,
     MESSAGE: stringsConfig.ERRORS.SOMETHING_WENT_WRONG,
-};
+} as const;
 
-const APP = {
-    PORT: 5000, // port on which the express app runs
-};
-
-export default { ERROR, APP };
+export default { ERROR };

@@ -5,6 +5,6 @@ const swaggerOptions: SwaggerOptions = {
         persistAuthorization: true,
         tryItOutEnabled: true,
     },
-};
+} as const;
 
 export default swaggerOptions;

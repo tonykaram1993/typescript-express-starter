@@ -13,11 +13,11 @@ const ERRORS = {
     EMAIL_ALREADY_EXISTS: "Email already exists",
     REFRESH_TOKEN_NOT_FOUND_OR_EXPIRED: "Refresh token not found or expired",
     INVALID_AUTHENTICATION_HEADER: "Invalid authentication header",
-};
+} as const;
 
 const MESSAGES = {
     CONNECTED_TO_MONGODB: "Connected to MongoDB!",
-};
+} as const;
 
 export default {
     MESSAGES,
