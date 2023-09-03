@@ -103,7 +103,7 @@ const generateRefreshToken = async (user: User) => {
 /**
  * The function `deleteRefreshToken` deletes the refresh token from the user document in the database.
  *
- * @param {DecodedJwtToken} user - The `user` parameter is an object of type `User`.
+ * @param {User} user - The `user` parameter is an object of type `User`.
  */
 const deleteRefreshToken = async (user: User) => {
     await UserModel.findOneAndUpdate(
