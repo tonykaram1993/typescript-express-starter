@@ -6,12 +6,12 @@ import { StatusCodes } from "http-status-codes";
 import authenticationSigninSchema from "../validation/schemas/authentication/signin.schema";
 import authenticationSignupSchema from "../validation/schemas/authentication/signup.schema";
 
-// Types
-import DecodedJwtToken from "../validation/types/authentication/DecodedJwtToken.type";
-
 // Services
 import userServices from "../services/user.services";
 import authenticationServices from "../services/authentication.services";
+
+// Models
+import { User } from "../models/User.model";
 
 const signin: RequestHandler = async (request, response) => {
     const {
@@ -38,7 +38,7 @@ const signin: RequestHandler = async (request, response) => {
 };
 
 const signout: RequestHandler = async (request, response) => {
-    const user = request.user as DecodedJwtToken;
+    const user: User = request.user;
 
     authenticationServices.deleteRefreshToken(user);
 
@@ -64,9 +64,7 @@ const signup: RequestHandler = async (request, response) => {
 };
 
 const refresh: RequestHandler = async (request, response) => {
-    const refreshToken = request.headers.refreshToken as string;
-
-    const user = await userServices.verifyUserByRefreshToken(refreshToken);
+    const user: User = request.user;
 
     const safeUser = authenticationServices.getSafeUserData(user);
     const jwtToken = authenticationServices.generateJwtToken(user);

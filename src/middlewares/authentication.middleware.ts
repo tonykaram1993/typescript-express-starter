@@ -6,27 +6,29 @@ import { RequestHandler } from "express";
 
 // Services
 import authenticationServices from "../services/authentication.services";
+import userServices from "../services/user.services";
 
 /**
- * The authenticationMiddleware function checks for an authorization header in the request, decodes the
- * token, and assigns the decoded token to the request object before calling the next middleware.
+ * The authenticationMiddleware function checks for a valid authorization header, decodes the token, retrieves the user
+ * associated with the token, and attaches the user object to the request before passing it to the next middleware.
  *
- * In this code snippet, if the `authorizationHeader` is `undefined`, a response with status
- * code `401` (UNAUTHORIZED) and a JSON object containing a `message` property will be returned. If the
- * `authorizationHeader` is defined, the `next()` function will be called to proceed to the next
- * middleware or route handler.
+ * @param request - The `request` parameter represents the incoming HTTP request object, which contains information about
+ * the client's request such as headers, query parameters, and request body.
+ * @param response - The `response` parameter is the HTTP response object that is used to send a response back to the
+ * client. It contains methods and properties that allow you to set the response status, headers, and body.
+ * @param next - The `next` parameter is a function that is called to pass control to the next middleware function in the
+ * chain. It is typically used to move to the next middleware function or to the route handler.
  *
- * @param request - The `request` parameter represents the incoming HTTP request object. It contains
- * information about the request, such as the request headers, request body, request method, and
- * request URL.
- * @param response - The `response` parameter is an object that represents the HTTP response that will
- * be sent back to the client. It is used to send data, set headers, and control the response status
- * code.
- * @param next - The `next` parameter is a function that is called to pass control to the next
- * middleware function in the chain. It is typically used to move to the next middleware function or to
- * the route handler function.
+ * @returns In this code snippet, if the `authorizationHeader` is `undefined`, a response with status code `401`
+ * (UNAUTHORIZED) and a JSON object containing a `message` property will be returned. If the `authorizationHeader` is
+ * defined, the code will continue to execute and call the `next()` function to pass control to the next middleware or
+ * route handler.
  */
-const authenticationMiddleware: RequestHandler = (request, response, next) => {
+const authenticationMiddleware: RequestHandler = async (
+    request,
+    response,
+    next
+) => {
     const { authorization: authorizationHeader } = request.headers;
 
     if (authorizationHeader === undefined) {
@@ -43,7 +45,11 @@ const authenticationMiddleware: RequestHandler = (request, response, next) => {
     const decodedAuthorizationToken =
         authenticationServices.decodeToken(authorizationToken);
 
-    request.user = decodedAuthorizationToken;
+    const user = await userServices.getUserByEmail(
+        decodedAuthorizationToken.email
+    );
+
+    request.user = user;
 
     next();
 };

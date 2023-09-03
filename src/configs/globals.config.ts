@@ -14,7 +14,13 @@ const ENV_VARIABLES = {
     JWT_REFRESH_TOKEN_SECRET: "JWT_REFRESH_TOKEN_SECRET",
 } as const;
 
+const HEADERS = {
+    AUTHORIZATION: "authorization",
+    REFRESH_TOKEN: "refresh-token",
+} as const;
+
 export default {
     ENVIRONMENTS,
     ENV_VARIABLES,
+    HEADERS,
 };
