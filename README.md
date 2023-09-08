@@ -28,6 +28,7 @@
 
 ## TODO
 
+1. Add integration testing
 1. API versioning
 1. MySQL
 1. Husky
