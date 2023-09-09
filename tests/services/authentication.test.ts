@@ -5,9 +5,9 @@ jest.mock("bcrypt");
 jest.mock("jsonwebtoken");
 
 import jsonwebtoken from "jsonwebtoken";
-import lodashOmit from "lodash/omit";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import lodashOmit from "lodash/omit";
 
 // Utils
 import getEnvVariable from "../../src/utils/getEnvVariable.util";
@@ -17,18 +17,20 @@ import authenticationServices from "../../src/services/authentication.services";
 
 // Models
 import UserModel, { User } from "../../src/models/User.model";
+
+// Types
 import { userPropertiesToOmitInTokens } from "../../src/validation/types/authentication/DecodedJwtToken.type";
 
 const envVariableReturn = "env";
 
 describe("getTokenFromAuthorizationHeader", () => {
-    it("getTokenFromAuthorizationHeader throws an error authorization header is formatted incorrectly", () => {
+    test("getTokenFromAuthorizationHeader throws an error authorization header is formatted incorrectly", () => {
         expect(() =>
             authenticationServices.getTokenFromAuthorizationHeader("Bearer")
         ).toThrowError();
     });
 
-    it("getTokenFromAuthorizationHeader returns token", () => {
+    test("getTokenFromAuthorizationHeader returns token", () => {
         expect(
             authenticationServices.getTokenFromAuthorizationHeader(
                 "Bearer token"
@@ -38,7 +40,7 @@ describe("getTokenFromAuthorizationHeader", () => {
 });
 
 describe("getSafeUserData", () => {
-    it("getSafeUserData returns user with specific fields omitted", () => {
+    test("getSafeUserData returns user with specific fields omitted", () => {
         const user: User = {
             _id: new mongoose.Types.ObjectId(),
             email: "john@thedoes.com",
@@ -55,7 +57,7 @@ describe("getSafeUserData", () => {
 });
 
 describe("generateJwtToken", () => {
-    it("generateJetToken return jwtToken", () => {
+    test("generateJetToken return jwtToken", () => {
         const user: User = {
             _id: new mongoose.Types.ObjectId(),
             email: "john@thedoes.com",
@@ -77,7 +79,7 @@ describe("generateJwtToken", () => {
 });
 
 describe("generateRefreshToken", () => {
-    it("generateRefreshToken return refreshToken", async () => {
+    test("generateRefreshToken return refreshToken", async () => {
         const user: User = {
             _id: new mongoose.Types.ObjectId(),
             email: "john@thedoes.com",
@@ -102,7 +104,7 @@ describe("generateRefreshToken", () => {
 });
 
 describe("deleteRefreshToken", () => {
-    it("deleteRefreshToken returns nothing and does not throw an error", () => {
+    test("deleteRefreshToken returns nothing and does not throw an error", () => {
         const user: User = {
             _id: new mongoose.Types.ObjectId(),
             email: "john@thedoes.com",
@@ -121,7 +123,7 @@ describe("deleteRefreshToken", () => {
 });
 
 describe("decodeToken", () => {
-    it("decodeToken returns decodedToken", () => {
+    test("decodeToken returns decodedToken", () => {
         (getEnvVariable.single as jest.Mock).mockReturnValueOnce(
             envVariableReturn
         );
@@ -134,7 +136,7 @@ describe("decodeToken", () => {
 });
 
 describe("checkUserPassword", () => {
-    it("checkUserPassword throws an error when password is incorrect", async () => {
+    test("checkUserPassword throws an error when password is incorrect", async () => {
         const user: User = {
             _id: new mongoose.Types.ObjectId(),
             email: "john@thedoes.com",
