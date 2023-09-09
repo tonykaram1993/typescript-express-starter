@@ -9,5 +9,6 @@ declare namespace NodeJS {
         [globalsConfig.ENV_VARIABLES.MONGODB_DATABASE]: string;
         [globalsConfig.ENV_VARIABLES.JWT_TOKEN_SECRET]: string;
         [globalsConfig.ENV_VARIABLES.JWT_REFRESH_TOKEN_SECRET]: string;
+        [globalsConfig.ENV_VARIABLES.JWT_RESET_PASSWORD_TOKEN_SECRET]: string;
     }
 }

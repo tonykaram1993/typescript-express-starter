@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { StatusCodes } from "http-status-codes";
 
 // Models
@@ -6,10 +5,12 @@ import UserModel, { User } from "../models/User.model";
 
 // Configs
 import stringsConfig from "../configs/strings.config";
-import settingsConfig from "../configs/settings.config";
 
 // Utils
 import PlatformError from "../utils/error.util";
+
+// Services
+import authenticationServices from "./authentication.services";
 
 /**
  * The function `getUserByEmail` retrieves a user from the database based on their email address.
@@ -23,6 +24,27 @@ const getUserByEmail = async (email: string) => {
     const user = await UserModel.findOne({
         email,
     });
+
+    if (user === null) {
+        return false;
+    }
+
+    return user.toObject();
+};
+
+/**
+ * The function `getUserByResetPasswordToken` retrieves a user from the database based on a reset password
+ *  token and returns the user object if found, or false if not found.
+ *
+ * @param {string} resetPasswordToken - The `resetPasswordToken` parameter is a string that represents the
+ *  token generated  for a user when they request to reset their password. This token is used to identify
+ *  the user and verify their identity when resetting their password.
+ *
+ * @returns either `false` if no user is found with the given reset password token, or it is returning the
+ *  user object as a plain JavaScript object if a user is found.
+ */
+const getUserByResetPasswordToken = async (resetPasswordToken: string) => {
+    const user = await UserModel.findOne({ resetPasswordToken });
 
     if (user === null) {
         return false;
@@ -142,6 +164,26 @@ const verifyEmailUniqueness = async (email: string) => {
 };
 
 /**
+ * The function verifies a user by their reset password token and throws an error if the token is not found.
+ *
+ * @param {string} resetPasswordToken - A string representing the reset password token that is used to verify the user.
+ *
+ * @returns the user object if it exists.
+ */
+const verifyUserByResetPasswordToken = async (resetPasswordToken: string) => {
+    const user = await getUserByResetPasswordToken(resetPasswordToken);
+
+    if (!user) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.RESET_PASSWORD_TOKEN_NOT_FOUND_OR_EXPIRED,
+            StatusCodes.NOT_FOUND
+        );
+    }
+
+    return user;
+};
+
+/**
  * The function `addUser` creates a new user with a unique email, encrypts the password, and returns
  * the created user.
  *
@@ -154,12 +196,43 @@ const verifyEmailUniqueness = async (email: string) => {
 const addUser = async (email: string, password: string) => {
     await verifyEmailUniqueness(email);
 
-    const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.SALT_ROUNDS);
-    const hash = bcrypt.hashSync(password, salt);
+    const { salt, hash } = authenticationServices.encryptUserPassword(password);
 
     const user = await UserModel.create({ email, passwordHash: hash, salt });
 
     return user.toObject();
+};
+
+/**
+ * The function updates a user's password using a reset password token.
+ *
+ * @param {string} resetPasswordToken - A string representing the reset password token generated for the user.
+ * @param {string} password - The `password` parameter is the new password that the user wants to set.
+ *
+ * @returns the updated user object.
+ */
+const updateUserPasswordByResetPasswordToken = async (
+    resetPasswordToken: string,
+    password: string
+) => {
+    const { salt, hash } = authenticationServices.encryptUserPassword(password);
+
+    const user = await UserModel.findOneAndUpdate(
+        { resetPasswordToken },
+        {
+            passwordHash: hash,
+            salt,
+        }
+    );
+
+    if (user === null) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.RESET_PASSWORD_TOKEN_NOT_FOUND_OR_EXPIRED,
+            StatusCodes.NOT_FOUND
+        );
+    }
+
+    return user;
 };
 
 export default {
@@ -169,5 +242,7 @@ export default {
     updateUserLastLoginAt,
     verifyUserByRefreshToken,
     verifyEmailUniqueness,
+    verifyUserByResetPasswordToken,
     addUser,
+    updateUserPasswordByResetPasswordToken,
 };

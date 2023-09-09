@@ -1,18 +1,17 @@
 import { z } from "zod";
 
+// Schemas
+import passwordSchema from "../password.schema";
+
 // Configs
 import stringsConfig from "../../../configs/strings.config";
 
-// Schemas
-import passwordSchema from "../password.schema";
-import emailSchema from "../email.schema";
-
-const authenticationSignupSchema = z.object({
+const authenticationForgotPasswordSchema = z.object({
     body: z
         .object({
-            email: emailSchema,
             password: passwordSchema,
             confirmationPassword: passwordSchema,
+            resetPasswordToken: z.string(),
         })
         // Make sure that password is equal to confirmationPassword
         .refine((data) => data.password === data.confirmationPassword, {
@@ -21,4 +20,4 @@ const authenticationSignupSchema = z.object({
         }),
 });
 
-export default authenticationSignupSchema;
+export default authenticationForgotPasswordSchema;

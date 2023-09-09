@@ -6,6 +6,7 @@ export type User = {
     passwordHash: string;
     salt: string;
     refreshToken?: string;
+    resetPasswordToken?: string;
     lastLoginAt?: Date;
     __v: number;
 };
@@ -26,6 +27,7 @@ const userSchema = new Schema<User>(
             required: true,
         },
         refreshToken: String,
+        resetPasswordToken: String,
         lastLoginAt: {
             type: Date,
         },
