@@ -28,7 +28,7 @@
 
 ## TODO
 
-1. User Bun runtime
+1. Use Bun runtime
 1. Add integration testing
 1. API versioning
 1. MySQL
