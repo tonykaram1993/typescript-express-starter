@@ -186,6 +186,9 @@
                     "500": {
                         "description": "Something went wrong"
                     },
+                    "404": {
+                        "description": "The email/password combination was not found. Please register"
+                    },
                     "200": {
                         "description": "Ok",
                         "content": {
@@ -295,6 +298,130 @@
                                     },
                                     "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
                                     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/authentication/forgot-password/request": {
+            "post": {
+                "tags": [
+                    "authentication",
+                    "forgot-password",
+                    "request",
+                    "post"
+                ],
+                "summary": "Request a resetPasswordToken using the email of an existing account on the platform",
+                "operationId": "authenticationForgotPasswordRequestPost",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "john@thedoes.com"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Something went wrong"
+                    },
+                    "400": {
+                        "description": "Validation Error"
+                    },
+                    "404": {
+                        "description": "The email/password combination was not found. Please register"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "resetPasswordToken": {
+                                            "$ref": "#/components/schemas/Token"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "resetPasswordToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/authentication/forgot-password/reset": {
+            "post": {
+                "tags": [
+                    "authentication",
+                    "forgot-password",
+                    "request",
+                    "post"
+                ],
+                "summary": "Reset the password of an existing account on the platform",
+                "operationId": "authenticationForgotPasswordResetPost",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "resetPasswordToken": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "confirmationPassword": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "resetPasswordToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+                                "password": "myPassword",
+                                "confirmationPassword": "myPassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "Something went wrong"
+                    },
+                    "404": {
+                        "description": "Reset password token not found or expired"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Password reset successful, you can now login"
                                 }
                             }
                         }

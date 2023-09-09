@@ -95,12 +95,44 @@ const generateRefreshToken = async (user: User) => {
     };
 
     const refreshToken = jsonwebtoken.sign(data, JWT_REFRESH_TOKEN_SECRET, {
-        expiresIn: settingsConfig.AUTHENTICATION.REFRESH_TOKEN_EXPIRY,
+        expiresIn: settingsConfig.AUTHENTICATION.JWT_REFRESH_TOKEN_EXPIRY,
     });
 
     UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });
 
     return refreshToken;
+};
+
+/**
+ * The function generates a reset password token using the provided email and stores it in the database for
+ *  the corresponding user.
+ *
+ * @param {string} email - The `email` parameter is a string that represents the email address of the user
+ *  for whom the reset password token is being generated.
+ *
+ * @returns the resetPasswordToken.
+ */
+const generateResetPasswordToken = async (email: string) => {
+    const JWT_RESET_PASSWORD_TOKEN_SECRET = getEnvVariable.single(
+        globalsConfig.ENV_VARIABLES.JWT_RESET_PASSWORD_TOKEN_SECRET
+    );
+
+    const data = {
+        email,
+    };
+
+    const resetPasswordToken = jsonwebtoken.sign(
+        data,
+        JWT_RESET_PASSWORD_TOKEN_SECRET,
+        {
+            expiresIn:
+                settingsConfig.AUTHENTICATION.JWT_RESET_PASSWORD_TOKEN_EXPIRY,
+        }
+    );
+
+    await UserModel.findOneAndUpdate({ email }, { resetPasswordToken });
+
+    return resetPasswordToken;
 };
 
 /**
@@ -160,12 +192,32 @@ const checkUserPassword = (user: User, password: string) => {
     }
 };
 
+/**
+ * The function encrypts a user's password using bcrypt and returns the salt and hash.
+ *
+ * @param {string} password - The `password` parameter is a string that represents the user's password that
+ *  needs to be encrypted.
+ *
+ * @returns The function `encryptUserPassword` returns an object with two properties: `salt` and `hash`.
+ */
+const encryptUserPassword = (password: string) => {
+    const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.SALT_ROUNDS);
+    const hash = bcrypt.hashSync(password, salt);
+
+    return {
+        salt,
+        hash,
+    };
+};
+
 export default {
     getTokenFromAuthorizationHeader,
     decodeToken,
     checkUserPassword,
     generateJwtToken,
     generateRefreshToken,
+    generateResetPasswordToken,
     deleteRefreshToken,
     getSafeUserData,
+    encryptUserPassword,
 };
