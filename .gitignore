@@ -3,5 +3,8 @@ dist
 .env.development
 .env.staging
 .env.production
+.env.docker
 .vscode
 logs
+yarn.lock
+.DS_Store

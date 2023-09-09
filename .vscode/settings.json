@@ -6,5 +6,7 @@
     "activityBar.background": "#1B1290",
     "titleBar.activeBackground": "#261AC9",
     "titleBar.activeForeground": "#FAF9FE"
-  }
+  },
+  "cSpell.words": ["signout"],
+  "docwriter.style": "JSDoc"
 }

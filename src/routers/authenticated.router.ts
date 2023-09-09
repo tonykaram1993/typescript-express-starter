@@ -11,6 +11,9 @@ import globalsConfig from "../configs/globals.config";
 import rateLimiter from "../utils/limiter.util";
 import getEnvVariable from "../utils/getEnvVariable.util";
 
+// Middlewares
+import authenticationMiddleware from "../middlewares/authentication.middleware";
+
 const router = Router({
     mergeParams: true,
 });
@@ -37,6 +40,9 @@ router.use(rateLimiter);
 // Body Parser
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json({ limit: "5mb" }));
+
+// Authentication
+router.use(authenticationMiddleware);
 
 // Public files
 router.use(express.static("public"));
