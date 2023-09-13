@@ -5,9 +5,9 @@ import globalsConfig from "../configs/globals.config";
 import settingsConfig from "../configs/settings.config";
 
 // Utils
-import getEnvVariable from "./getEnvVariable.util";
+import envVariable from "./envVariable.util";
 
-const NODE_ENV = getEnvVariable.single(globalsConfig.ENV_VARIABLES.NODE_ENV);
+const NODE_ENV = envVariable.getSingle(globalsConfig.ENV_VARIABLES.NODE_ENV);
 
 const logger = createLogger({
     level: "info",

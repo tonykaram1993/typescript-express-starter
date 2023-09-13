@@ -24,16 +24,16 @@
 ## Abandonned Features
 
 1. SWC (https://swc.rs)
-   Currently, SWC does not work well with Docker and is causing many issues, could revisit this at a later date
+   Currently, SWC does not work well with Docker and is causing many issues, could revisit this at a later date. Plus this should be replaced by Bun.
 
 ## TODO
 
+1. Add user roles
 1. Use Bun runtime
 1. Add integration testing
 1. API versioning
 1. MySQL
 1. Husky
-1. Check SWC again
 
 ## How to install
 
@@ -52,8 +52,9 @@
 ## Code structure
 
 ```
+/dist
 /src
-  /config
+  /configs
   /controllers
   /logs
   /middlewares
@@ -66,6 +67,11 @@
   /validation
     /declarations
     /schemas
+      /authentication
+      /index
+    /types
+      /authentication
+      /index
   /types
 /tests
   /services

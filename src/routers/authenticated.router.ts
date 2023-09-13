@@ -9,7 +9,7 @@ import globalsConfig from "../configs/globals.config";
 
 // Utils
 import rateLimiter from "../utils/limiter.util";
-import getEnvVariable from "../utils/getEnvVariable.util";
+import envVariable from "../utils/envVariable.util";
 
 // Middlewares
 import authenticationMiddleware from "../middlewares/authentication.middleware";
@@ -18,7 +18,7 @@ const router = Router({
     mergeParams: true,
 });
 
-const NODE_ENV = getEnvVariable.single(globalsConfig.ENV_VARIABLES.NODE_ENV);
+const NODE_ENV = envVariable.getSingle(globalsConfig.ENV_VARIABLES.NODE_ENV);
 
 // Cors
 router.use(cors());

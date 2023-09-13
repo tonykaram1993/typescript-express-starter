@@ -112,7 +112,10 @@ const verifyUserByEmail = async (email: string) => {
 const updateUserLastLoginAt = async (user: User, lastLoginAt: Date) => {
     const updatedUser = await UserModel.findOneAndUpdate(
         { email: user.email },
-        { lastLoginAt }
+        {
+            lastLoginAt,
+            isForcedToLogin: false,
+        }
     );
 
     if (updatedUser === null) {
@@ -173,7 +176,7 @@ const verifyEmailUniqueness = async (email: string) => {
 const verifyUserByResetPasswordToken = async (resetPasswordToken: string) => {
     const user = await getUserByResetPasswordToken(resetPasswordToken);
 
-    if (!user) {
+    if (user === false) {
         throw new PlatformError(
             stringsConfig.ERRORS.RESET_PASSWORD_TOKEN_NOT_FOUND_OR_EXPIRED,
             StatusCodes.NOT_FOUND
@@ -204,7 +207,8 @@ const addUser = async (email: string, password: string) => {
 };
 
 /**
- * The function updates a user's password using a reset password token.
+ * The function updates a user's password using a reset password token, resets the number of incorrect login attemps,
+ * and forces the user to login again.
  *
  * @param {string} resetPasswordToken - A string representing the reset password token generated for the user.
  * @param {string} password - The `password` parameter is the new password that the user wants to set.
@@ -222,6 +226,8 @@ const updateUserPasswordByResetPasswordToken = async (
         {
             passwordHash: hash,
             salt,
+            incorrectPasswordAttempts: 0,
+            isForcedToLogin: true,
         }
     );
 
@@ -232,12 +238,13 @@ const updateUserPasswordByResetPasswordToken = async (
         );
     }
 
-    return user;
+    return user.toObject();
 };
 
 export default {
     getUserByEmail,
     getUserByRefreshToken,
+    getUserByResetPasswordToken,
     verifyUserByEmail,
     updateUserLastLoginAt,
     verifyUserByRefreshToken,

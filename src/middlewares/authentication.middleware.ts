@@ -8,9 +8,14 @@ import { RequestHandler } from "express";
 import authenticationServices from "../services/authentication.services";
 import userServices from "../services/user.services";
 
+// Utils
+import PlatformError from "../utils/error.util";
+
 /**
  * The authenticationMiddleware function checks for a valid authorization header, decodes the token, retrieves the user
- * associated with the token, and attaches the user object to the request before passing it to the next middleware.
+ * associated with the token, and attaches the user object to the request before passing it to the next middleware. It
+ * also checks that the user is not forced to re-login. A user is forced to re-login when they signout or change their
+ * password.
  *
  * @param request - The `request` parameter represents the incoming HTTP request object, which contains information about
  * the client's request such as headers, query parameters, and request body.
@@ -32,9 +37,10 @@ const authenticationMiddleware: RequestHandler = async (
     const { authorization: authorizationHeader } = request.headers;
 
     if (authorizationHeader === undefined) {
-        return response.status(StatusCodes.UNAUTHORIZED).json({
-            message: stringsConfig.ERRORS.UNAUTHORIZED,
-        });
+        throw new PlatformError(
+            stringsConfig.ERRORS.UNAUTHORIZED,
+            StatusCodes.UNAUTHORIZED
+        );
     }
 
     const authorizationToken =
@@ -48,6 +54,20 @@ const authenticationMiddleware: RequestHandler = async (
     const user = await userServices.getUserByEmail(
         decodedAuthorizationToken.email
     );
+
+    if (user === false) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.UNAUTHORIZED,
+            StatusCodes.UNAUTHORIZED
+        );
+    }
+
+    if (user.isForcedToLogin) {
+        throw new PlatformError(
+            stringsConfig.ERRORS.UNAUTHORIZED,
+            StatusCodes.UNAUTHORIZED
+        );
+    }
 
     request.user = user;
 
