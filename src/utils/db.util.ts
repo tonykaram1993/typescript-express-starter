@@ -2,13 +2,13 @@ import mongoose, { ConnectOptions } from "mongoose";
 
 // Utils
 import logger from "./logger.util";
-import getEnvVariable from "./getEnvVariable.util";
+import envVariable from "./envVariable.util";
 
 // Configs
 import stringsConfig from "../configs/strings.config";
 import globalsConfig from "../configs/globals.config";
 
-const [MONGODB_HOST, MONGODB_PORT, MONGODB_DATABASE] = getEnvVariable.multiple([
+const [MONGODB_HOST, MONGODB_PORT, MONGODB_DATABASE] = envVariable.getMultiple([
     globalsConfig.ENV_VARIABLES.MONGODB_HOST,
     globalsConfig.ENV_VARIABLES.MONGODB_PORT,
     globalsConfig.ENV_VARIABLES.MONGODB_DATABASE,

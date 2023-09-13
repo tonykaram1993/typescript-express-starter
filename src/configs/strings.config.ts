@@ -14,6 +14,8 @@ const ERRORS = {
     RESET_PASSWORD_TOKEN_NOT_FOUND_OR_EXPIRED:
         "Reset password token not found or expired",
     INVALID_AUTHENTICATION_HEADER: "Invalid authentication header",
+    ACCOUNT_DISABLED_TOO_MANY_ATTEMPTS:
+        "Account has been disabled due to too many incorrect password attempts, please reset your password",
 } as const;
 
 const MESSAGES = {

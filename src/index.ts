@@ -17,12 +17,12 @@ import globalsConfig from "./configs/globals.config";
 // Utils
 import db from "./utils/db.util";
 import logger from "./utils/logger.util";
-import getEnvVariable from "./utils/getEnvVariable.util";
+import envVariable from "./utils/envVariable.util";
 
 // Middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandler.middleware";
 
-const PORT = getEnvVariable.single(globalsConfig.ENV_VARIABLES.PORT);
+const PORT = envVariable.getSingle(globalsConfig.ENV_VARIABLES.PORT);
 
 db.connect();
 

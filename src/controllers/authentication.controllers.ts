@@ -46,6 +46,7 @@ const signout: RequestHandler = async (request, response) => {
     const user: User = request.user;
 
     authenticationServices.deleteRefreshToken(user);
+    authenticationServices.forceUserToLogin(user.email);
 
     response.status(StatusCodes.NO_CONTENT).end();
 };

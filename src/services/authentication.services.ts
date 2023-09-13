@@ -12,7 +12,7 @@ import DecodedJwtToken, {
 import UserModel, { User } from "../models/User.model";
 
 // Utils
-import getEnvVariable from "../utils/getEnvVariable.util";
+import envVariable from "../utils/envVariable.util";
 import PlatformError from "../utils/error.util";
 
 // Configs
@@ -63,7 +63,7 @@ const getSafeUserData = (user: User): DecodedJwtToken =>
  * @returns The function `generateJwtToken` returns a JSON Web Token (JWT) token.
  */
 const generateJwtToken = (user: User) => {
-    const JWT_TOKEN_SECRET = getEnvVariable.single(
+    const JWT_TOKEN_SECRET = envVariable.getSingle(
         globalsConfig.ENV_VARIABLES.JWT_TOKEN_SECRET
     );
 
@@ -85,7 +85,7 @@ const generateJwtToken = (user: User) => {
  * @returns the refresh token.
  */
 const generateRefreshToken = async (user: User) => {
-    const JWT_REFRESH_TOKEN_SECRET = getEnvVariable.single(
+    const JWT_REFRESH_TOKEN_SECRET = envVariable.getSingle(
         globalsConfig.ENV_VARIABLES.JWT_REFRESH_TOKEN_SECRET
     );
 
@@ -98,7 +98,7 @@ const generateRefreshToken = async (user: User) => {
         expiresIn: settingsConfig.AUTHENTICATION.JWT_REFRESH_TOKEN_EXPIRY,
     });
 
-    UserModel.findOneAndUpdate({ email: user.email }, { refreshToken });
+    UserModel.updateOne({ email: user.email }, { refreshToken });
 
     return refreshToken;
 };
@@ -113,7 +113,7 @@ const generateRefreshToken = async (user: User) => {
  * @returns the resetPasswordToken.
  */
 const generateResetPasswordToken = async (email: string) => {
-    const JWT_RESET_PASSWORD_TOKEN_SECRET = getEnvVariable.single(
+    const JWT_RESET_PASSWORD_TOKEN_SECRET = envVariable.getSingle(
         globalsConfig.ENV_VARIABLES.JWT_RESET_PASSWORD_TOKEN_SECRET
     );
 
@@ -130,7 +130,7 @@ const generateResetPasswordToken = async (email: string) => {
         }
     );
 
-    await UserModel.findOneAndUpdate({ email }, { resetPasswordToken });
+    UserModel.updateOne({ email }, { resetPasswordToken });
 
     return resetPasswordToken;
 };
@@ -140,16 +140,18 @@ const generateResetPasswordToken = async (email: string) => {
  *
  * @param {User} user - The `user` parameter is an object of type `User`.
  */
-const deleteRefreshToken = async (user: User) => {
-    await UserModel.findOneAndUpdate(
+const deleteRefreshToken = async (user: User) =>
+    UserModel.findOneAndUpdate(
         { email: user.email },
         {
             $unset: {
                 refreshToken: "",
             },
+            $set: {
+                isForcedToLogin: true,
+            },
         }
     );
-};
 
 /**
  * The function `decodeToken` decodes a JSON Web Token (JWT) using a secret key and returns the decoded
@@ -161,7 +163,7 @@ const deleteRefreshToken = async (user: User) => {
  * `DecodedJwtToken`.
  */
 const decodeToken = (token: string) => {
-    const JWT_TOKEN_SECRET = getEnvVariable.single(
+    const JWT_TOKEN_SECRET = envVariable.getSingle(
         globalsConfig.ENV_VARIABLES.JWT_TOKEN_SECRET
     );
 
@@ -185,6 +187,23 @@ const checkUserPassword = (user: User, password: string) => {
     const isPasswordCorrect = bcrypt.compareSync(password, user.passwordHash);
 
     if (!isPasswordCorrect) {
+        const { incorrectPasswordAttempts } = user;
+
+        if (
+            incorrectPasswordAttempts >=
+            settingsConfig.AUTHENTICATION.PASSWORD_INCORRECT_ATTEMPTS_LIMIT
+        ) {
+            throw new PlatformError(
+                stringsConfig.ERRORS.ACCOUNT_DISABLED_TOO_MANY_ATTEMPTS,
+                StatusCodes.UNAUTHORIZED
+            );
+        }
+
+        UserModel.updateOne(
+            { email: user.email },
+            { incorrectPasswordAttempts: user.incorrectPasswordAttempts + 1 }
+        );
+
         throw new PlatformError(
             stringsConfig.ERRORS.EMAIL_PASSWORD_NOT_FOUND,
             StatusCodes.NOT_FOUND
@@ -210,6 +229,9 @@ const encryptUserPassword = (password: string) => {
     };
 };
 
+const forceUserToLogin = async (email: string) =>
+    UserModel.findOneAndUpdate({ email }, { isForcedToLogin: true });
+
 export default {
     getTokenFromAuthorizationHeader,
     decodeToken,
@@ -220,4 +242,5 @@ export default {
     deleteRefreshToken,
     getSafeUserData,
     encryptUserPassword,
+    forceUserToLogin,
 };

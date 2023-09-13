@@ -54,9 +54,7 @@
     "paths": {
         "/": {
             "get": {
-                "tags": [
-                    "index"
-                ],
+                "tags": ["index"],
                 "summary": "Get an acknowledgment that the server is up and running",
                 "operationId": "indexGet",
                 "responses": {
@@ -68,11 +66,7 @@
         },
         "/authentication/signup": {
             "post": {
-                "tags": [
-                    "authentication",
-                    "signup",
-                    "post"
-                ],
+                "tags": ["authentication", "signup", "post"],
                 "summary": "Create a new account on the platform using an email and a password",
                 "operationId": "authenticationSignupPost",
                 "requestBody": {
@@ -149,11 +143,7 @@
         },
         "/authentication/signin": {
             "post": {
-                "tags": [
-                    "authentication",
-                    "signin",
-                    "post"
-                ],
+                "tags": ["authentication", "signin", "post"],
                 "summary": "Signin to an already existing account on the platform using an email and a password",
                 "operationId": "authenticationSigninPost",
                 "requestBody": {
@@ -226,11 +216,7 @@
         },
         "/authentication/signout": {
             "get": {
-                "tags": [
-                    "authentication",
-                    "signout",
-                    "post"
-                ],
+                "tags": ["authentication", "signout", "post"],
                 "summary": "Signout of an already existing account on the platform using a refreshToken",
                 "operationId": "authenticationSignoutGet",
                 "responses": {
@@ -248,11 +234,7 @@
         },
         "/authentication/refresh": {
             "post": {
-                "tags": [
-                    "authentication",
-                    "refresh",
-                    "post"
-                ],
+                "tags": ["authentication", "refresh", "post"],
                 "summary": "Get a new jwtToken when the old jwtToken is expired or lost using the refreshToken for an existing account on the platform",
                 "operationId": "authenticationRefreshPost",
                 "parameters": [

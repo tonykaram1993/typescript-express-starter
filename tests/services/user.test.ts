@@ -14,6 +14,19 @@ import UserModel, { User } from "../../src/models/User.model";
 // Utils
 import PlatformError from "../../src/utils/error.util";
 
+const user: User = {
+    _id: new mongoose.Types.ObjectId(),
+    email: "john@thedoes.com",
+    passwordHash: "passwordHash",
+    salt: "salt",
+    refreshToken: "refreshToken",
+    isForcedToLogin: false,
+    incorrectPasswordAttempts: 0,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    __v: 0,
+};
+
 describe("getUserByEmail", () => {
     test("getUserByEmail returns null if no user is found", async () => {
         (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
@@ -25,15 +38,6 @@ describe("getUserByEmail", () => {
     });
 
     test("getUserByEmail returns user if user is found", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -58,15 +62,6 @@ describe("getUserByRefreshToken", () => {
     });
 
     test("getUserByRefreshToken returns user if user is found", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -90,15 +85,6 @@ describe("verifyUserByEmail", () => {
     });
 
     test("verifyUserByEmail returns user if user is found", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -124,15 +110,6 @@ describe("verifyUserByRefreshToken", () => {
     });
 
     test("verifyUserByRefreshToken returns user if user is found", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -149,15 +126,6 @@ describe("verifyUserByRefreshToken", () => {
 
 describe("verifyEmailUniqueness", () => {
     test("verifyEmailUniqueness throws error if user is found", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -182,15 +150,6 @@ describe("verifyEmailUniqueness", () => {
 
 describe("addUser", () => {
     test("addUser returns added user", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -206,15 +165,6 @@ describe("addUser", () => {
     });
 
     test("addUser returns error when user is found and email is not unique", async () => {
-        const user: User = {
-            _id: new mongoose.Types.ObjectId(),
-            email: "john@thedoes.com",
-            passwordHash: "passwordHash",
-            salt: "salt",
-            refreshToken: "refreshToken",
-            __v: 0,
-        };
-
         const userMongoDocument = {
             toObject: jest.fn().mockReturnValueOnce(user),
         };
@@ -226,3 +176,8 @@ describe("addUser", () => {
         expect(result).rejects.toBeInstanceOf(PlatformError);
     });
 });
+
+// TODO RSNS  TK - getUserByResetPasswordToken
+// TODO RSNS  TK - updateUserLastLoginAt
+// TODO RSNS  TK - verifyUserByResetPasswordToken
+// TODO RSNS  TK - updateUserPasswordByResetPasswordToken
