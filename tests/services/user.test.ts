@@ -51,6 +51,90 @@ describe("getUserByEmail", () => {
     });
 });
 
+describe("getUserByResetPasswordToken", () => {
+    test("getUserByResetPasswordToken returns null if no user is found", async () => {
+        (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
+
+        const returnedUser = await userServices.getUserByResetPasswordToken(
+            "resetPasswordToken"
+        );
+        expect(returnedUser).toBe(false);
+    });
+
+    test("getUserByResetPasswordToken returns user if user is found", async () => {
+        const userMongoDocument = {
+            toObject: jest.fn().mockReturnValueOnce(user),
+        };
+
+        (UserModel.findOne as jest.Mock).mockReturnValueOnce(userMongoDocument);
+
+        const returnedUser = await userServices.getUserByResetPasswordToken(
+            "resetPasswordToken"
+        );
+        expect(returnedUser).toEqual(user);
+    });
+});
+
+describe("updateUserLastLoginAt", () => {
+    test("updateUserLastLoginAt throws error if no user is found", async () => {
+        (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(null);
+
+        const result = userServices.updateUserLastLoginAt(user, new Date());
+
+        expect(result).rejects.toBeInstanceOf(PlatformError);
+    });
+
+    test("updateUserLastLoginAt returns user if user is found", async () => {
+        const userMongoDocument = {
+            toObject: jest.fn().mockReturnValueOnce(user),
+        };
+
+        (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(
+            userMongoDocument
+        );
+
+        const returnedUser = await userServices.updateUserLastLoginAt(
+            user,
+            new Date()
+        );
+        expect(returnedUser).toEqual(user);
+    });
+});
+
+describe("updateUserPasswordByResetPasswordToken", () => {
+    test("updateUserPasswordByResetPasswordToken throws error if no user is found", async () => {
+        (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(null);
+        (bcrypt.genSaltSync as jest.Mock).mockReturnValueOnce("salt");
+        (bcrypt.hashSync as jest.Mock).mockReturnValueOnce("hash");
+
+        const result = userServices.updateUserPasswordByResetPasswordToken(
+            "resetPasswordToken",
+            "password"
+        );
+
+        expect(result).rejects.toBeInstanceOf(PlatformError);
+    });
+
+    test("updateUserPasswordByResetPasswordToken returns user if user is found", async () => {
+        const userMongoDocument = {
+            toObject: jest.fn().mockReturnValueOnce(user),
+        };
+
+        (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(
+            userMongoDocument
+        );
+        (bcrypt.genSaltSync as jest.Mock).mockReturnValueOnce("salt");
+        (bcrypt.hashSync as jest.Mock).mockReturnValueOnce("hash");
+
+        const returnedUser =
+            await userServices.updateUserPasswordByResetPasswordToken(
+                "resetPasswordToken",
+                "password"
+            );
+        expect(returnedUser).toEqual(user);
+    });
+});
+
 describe("getUserByRefreshToken", () => {
     test("getUserByRefreshToken returns null if no user is found", async () => {
         (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
@@ -93,6 +177,31 @@ describe("verifyUserByEmail", () => {
 
         const returnedUser = await userServices.verifyUserByEmail(
             "john@thedoes.com"
+        );
+
+        expect(returnedUser).toEqual(user);
+    });
+});
+
+describe("verifyUserByResetPasswordToken", () => {
+    test("verifyUserByResetPasswordToken throws error if no user is found", async () => {
+        (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
+
+        const result =
+            userServices.verifyUserByResetPasswordToken("resetPasswordToken");
+
+        expect(result).rejects.toBeInstanceOf(PlatformError);
+    });
+
+    test("verifyUserByResetPasswordToken returns user if user is found", async () => {
+        const userMongoDocument = {
+            toObject: jest.fn().mockReturnValueOnce(user),
+        };
+
+        (UserModel.findOne as jest.Mock).mockReturnValueOnce(userMongoDocument);
+
+        const returnedUser = await userServices.verifyUserByResetPasswordToken(
+            "resetPasswordToken"
         );
 
         expect(returnedUser).toEqual(user);
@@ -176,8 +285,3 @@ describe("addUser", () => {
         expect(result).rejects.toBeInstanceOf(PlatformError);
     });
 });
-
-// TODO RSNS  TK - getUserByResetPasswordToken
-// TODO RSNS  TK - updateUserLastLoginAt
-// TODO RSNS  TK - verifyUserByResetPasswordToken
-// TODO RSNS  TK - updateUserPasswordByResetPasswordToken

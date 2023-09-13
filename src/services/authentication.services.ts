@@ -34,7 +34,7 @@ import globalsConfig from "../configs/globals.config";
 const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
     const [, token] = authorizationHeader.split("Bearer ");
 
-    if (!token) {
+    if (token === undefined || token.trim() === "") {
         throw new PlatformError(
             stringsConfig.ERRORS.INVALID_AUTHENTICATION_HEADER,
             StatusCodes.UNAUTHORIZED

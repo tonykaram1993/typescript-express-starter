@@ -89,6 +89,21 @@ describe("generateRefreshToken", () => {
     });
 });
 
+describe("generateResetPasswordToken", () => {
+    test("generateResetPasswordToken return refreshToken", async () => {
+        (envVariable.getSingle as jest.Mock).mockReturnValueOnce(
+            envVariableReturn
+        );
+        (jsonwebtoken.sign as jest.Mock).mockReturnValueOnce("refreshToken");
+        (UserModel.updateOne as jest.Mock).mockReturnValueOnce(null);
+
+        const refreshToken =
+            await authenticationServices.generateResetPasswordToken("email");
+
+        expect(refreshToken).toEqual("refreshToken");
+    });
+});
+
 describe("deleteRefreshToken", () => {
     test("deleteRefreshToken returns nothing and does not throw an error", () => {
         (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(user);
@@ -122,6 +137,26 @@ describe("checkUserPassword", () => {
     });
 });
 
-// TODO RSNS  TK - generateResetPasswordToken
-// TODO RSNS  TK - encryptUserPassword
-// TODO RSNS  TK - forceUserToLogin
+describe("encryptUserPassword", () => {
+    test("encryptUserPassword throws an error when password is incorrect", async () => {
+        (bcrypt.genSaltSync as jest.Mock).mockReturnValueOnce("salt");
+        (bcrypt.hashSync as jest.Mock).mockReturnValueOnce("hash");
+
+        expect(authenticationServices.encryptUserPassword("password")).toEqual({
+            salt: "salt",
+            hash: "hash",
+        });
+    });
+});
+
+describe("forceUserToLogin", () => {
+    test("forceUserToLogin throws an error when password is incorrect", async () => {
+        (UserModel.findOneAndUpdate as jest.Mock).mockReturnValueOnce(user);
+
+        const refreshToken = await authenticationServices.forceUserToLogin(
+            "password"
+        );
+
+        expect(refreshToken).toEqual(user);
+    });
+});

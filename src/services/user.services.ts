@@ -176,7 +176,7 @@ const verifyEmailUniqueness = async (email: string) => {
 const verifyUserByResetPasswordToken = async (resetPasswordToken: string) => {
     const user = await getUserByResetPasswordToken(resetPasswordToken);
 
-    if (!user) {
+    if (user === false) {
         throw new PlatformError(
             stringsConfig.ERRORS.RESET_PASSWORD_TOKEN_NOT_FOUND_OR_EXPIRED,
             StatusCodes.NOT_FOUND
@@ -238,12 +238,13 @@ const updateUserPasswordByResetPasswordToken = async (
         );
     }
 
-    return user;
+    return user.toObject();
 };
 
 export default {
     getUserByEmail,
     getUserByRefreshToken,
+    getUserByResetPasswordToken,
     verifyUserByEmail,
     updateUserLastLoginAt,
     verifyUserByRefreshToken,
