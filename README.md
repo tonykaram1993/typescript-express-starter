@@ -21,7 +21,7 @@
 1. Source map support (https://www.npmjs.com/package/source-map-support)
 1. Add authentication
 
-## Abandonned Features
+## Abandoned Features
 
 1. SWC (https://swc.rs)
    Currently, SWC does not work well with Docker and is causing many issues, could revisit this at a later date. Plus this should be replaced by Bun.
