@@ -15,11 +15,11 @@
 1. Swagger (https://swagger.io)
 1. Morgan (https://github.com/expressjs/morgan#readme)
 1. Helmet (https://helmetjs.github.io)
-1. Add rate limiter (https://github.com/express-rate-limit/express-rate-limit)
+1. Rate limiter (https://github.com/express-rate-limit/express-rate-limit)
 1. Axios time of flight
 1. Docker (https://www.docker.com)
 1. Source map support (https://www.npmjs.com/package/source-map-support)
-1. Add authentication
+1. Authentication
 
 ## Abandoned Features
 
