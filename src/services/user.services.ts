@@ -12,6 +12,9 @@ import PlatformError from "../utils/error.util";
 // Services
 import authenticationServices from "./authentication.services";
 
+// Types
+import UserPermission from "../validation/types/user/UserPermission.type";
+
 /**
  * The function `getUserByEmail` retrieves a user from the database based on their email address.
  *
@@ -241,6 +244,31 @@ const updateUserPasswordByResetPasswordToken = async (
     return user.toObject();
 };
 
+/**
+ * The function updateUserPermissionsAppend updates a user's permissions by appending new
+ * permissions to their existing ones.
+ *
+ * @param {User} user - The `user` parameter is an object representing a user. It likely
+ * contains properties such as `email`, `name`, and `permissions`.
+ * @param {UserPermission[]} permissions - The `permissions` parameter is an array of
+ * `UserPermission` objects.
+ *
+ * @returns the unique permissions after updating the user's permissions.
+ */
+const updateUserPermissionsAppend = async (
+    user: User,
+    permissions: UserPermission[]
+) => {
+    const uniquePermissions = new Set([...user.permissions, ...permissions]);
+
+    UserModel.updateOne(
+        { email: user.email },
+        { permissions: [...uniquePermissions] }
+    );
+
+    return [...uniquePermissions];
+};
+
 export default {
     getUserByEmail,
     getUserByRefreshToken,
@@ -252,4 +280,5 @@ export default {
     verifyUserByResetPasswordToken,
     addUser,
     updateUserPasswordByResetPasswordToken,
+    updateUserPermissionsAppend,
 };

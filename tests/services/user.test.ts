@@ -13,6 +13,7 @@ import UserModel, { User } from "../../src/models/User.model";
 
 // Utils
 import PlatformError from "../../src/utils/error.util";
+import globalsConfig from "../../src/configs/globals.config";
 
 const user: User = {
     _id: new mongoose.Types.ObjectId(),
@@ -24,6 +25,7 @@ const user: User = {
     incorrectPasswordAttempts: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
+    permissions: [globalsConfig.PERMISSIONS.GET_SUSPEND_USER],
     __v: 0,
 };
 
@@ -283,5 +285,20 @@ describe("addUser", () => {
         const result = userServices.addUser("email", "password");
 
         expect(result).rejects.toBeInstanceOf(PlatformError);
+    });
+});
+
+describe("updateUserPermissionsAppend", () => {
+    test("updateUserPermissionsAppend returns the merged uniquePermissions", async () => {
+        (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
+
+        expect(
+            await userServices.updateUserPermissionsAppend(user, [
+                globalsConfig.PERMISSIONS.SET_SUSPEND_USER,
+            ])
+        ).toEqual([
+            globalsConfig.PERMISSIONS.GET_SUSPEND_USER,
+            globalsConfig.PERMISSIONS.SET_SUSPEND_USER,
+        ]);
     });
 });

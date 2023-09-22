@@ -33,6 +33,7 @@ const user: User = {
     incorrectPasswordAttempts: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
+    permissions: [],
     __v: 0,
 };
 

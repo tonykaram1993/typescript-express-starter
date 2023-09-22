@@ -34,6 +34,7 @@ const authenticationMiddleware: RequestHandler = async (
     response,
     next
 ) => {
+    // Get authorization header
     const { authorization: authorizationHeader } = request.headers;
 
     if (authorizationHeader === undefined) {
@@ -43,14 +44,15 @@ const authenticationMiddleware: RequestHandler = async (
         );
     }
 
+    // Get token and decode it
     const authorizationToken =
         authenticationServices.getTokenFromAuthorizationHeader(
             authorizationHeader
         );
-
     const decodedAuthorizationToken =
         authenticationServices.decodeToken(authorizationToken);
 
+    // Get user
     const user = await userServices.getUserByEmail(
         decodedAuthorizationToken.email
     );
@@ -62,6 +64,7 @@ const authenticationMiddleware: RequestHandler = async (
         );
     }
 
+    // Check if user is forced to login
     if (user.isForcedToLogin) {
         throw new PlatformError(
             stringsConfig.ERRORS.UNAUTHORIZED,

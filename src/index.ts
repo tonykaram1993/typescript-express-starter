@@ -6,6 +6,7 @@ import "source-map-support/register";
 // Routes
 import indexRoutes from "./routes/index.route";
 import authenticationRoutes from "./routes/authentication.route";
+import userRoutes from "./routes/user.route";
 
 // Specs
 import swaggerDocument from "./specs/swagger.json";
@@ -15,7 +16,7 @@ import swaggerOptions from "./configs/swagger.config";
 import globalsConfig from "./configs/globals.config";
 
 // Utils
-import db from "./utils/db.util";
+import mongo from "./utils/mongo.util";
 import logger from "./utils/logger.util";
 import envVariable from "./utils/envVariable.util";
 
@@ -24,7 +25,7 @@ import errorHandlerMiddleware from "./middlewares/errorHandler.middleware";
 
 const PORT = envVariable.getSingle(globalsConfig.ENV_VARIABLES.PORT);
 
-db.connect();
+mongo.connect();
 
 const app: Express = express();
 
@@ -32,6 +33,7 @@ const app: Express = express();
 app.use(indexRoutes.unauthenticatedRouter);
 app.use("/authentication", authenticationRoutes.unauthenticatedRouter);
 app.use("/authentication", authenticationRoutes.authenticatedRouter);
+app.use("/users", userRoutes.authenticatedRouter);
 
 // Swagger
 app.use(

@@ -1,5 +1,11 @@
 import { Schema, Types, model } from "mongoose";
 
+// Types
+import UserPermission from "../validation/types/user/UserPermission.type";
+
+// Configs
+import globalsConfig from "../configs/globals.config";
+
 export type User = {
     // Required
     email: string;
@@ -7,6 +13,7 @@ export type User = {
     salt: string;
     isForcedToLogin: boolean;
     incorrectPasswordAttempts: number;
+    permissions: UserPermission[];
 
     // Optional
     refreshToken?: string;
@@ -35,6 +42,14 @@ const userSchema = new Schema<User>(
             type: String,
             required: true,
         },
+        permissions: [
+            {
+                type: String,
+                required: true,
+                enum: Object.values(globalsConfig.PERMISSIONS),
+                default: [],
+            },
+        ],
         refreshToken: String,
         resetPasswordToken: String,
         isForcedToLogin: {

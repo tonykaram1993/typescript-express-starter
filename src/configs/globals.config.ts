@@ -20,8 +20,14 @@ const HEADERS = {
     REFRESH_TOKEN: "refresh-token",
 } as const;
 
+const PERMISSIONS = {
+    GET_SUSPEND_USER: "GET_SUSPEND_USER",
+    SET_SUSPEND_USER: "SET_SUSPEND_USER",
+} as const;
+
 export default {
     ENVIRONMENTS,
     ENV_VARIABLES,
     HEADERS,
+    PERMISSIONS,
 };
