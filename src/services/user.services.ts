@@ -245,7 +245,7 @@ const updateUserPasswordByResetPasswordToken = async (
 };
 
 /**
- * The function updateUserPermissionsAppend updates a user's permissions by appending new
+ * The function updateUserPermissionsAdd updates a user's permissions by appending new
  * permissions to their existing ones.
  *
  * @param {User} user - The `user` parameter is an object representing a user. It likely
@@ -255,18 +255,45 @@ const updateUserPasswordByResetPasswordToken = async (
  *
  * @returns the unique permissions after updating the user's permissions.
  */
-const updateUserPermissionsAppend = async (
+const updateUserPermissionsAdd = async (
     user: User,
     permissions: UserPermission[]
 ) => {
     const uniquePermissions = new Set([...user.permissions, ...permissions]);
+    const uniquePermissionsArray = [...uniquePermissions];
 
     UserModel.updateOne(
         { email: user.email },
-        { permissions: [...uniquePermissions] }
+        { permissions: uniquePermissionsArray }
     );
 
-    return [...uniquePermissions];
+    return uniquePermissionsArray;
+};
+
+/**
+ * The function updates a user's permissions by subtracting the specified permissions from their existing permissions.
+ *
+ * @param {User} user - The `user` parameter is an object representing a user. It likely contains properties such as
+ * `email`, `name`, and `permissions`.
+ * @param {UserPermission[]} permissions - The `permissions` parameter is an array of `UserPermission` objects. It
+ * represents the permissions that need to be subtracted from the user's existing permissions.
+ *
+ * @returns the filtered permissions array.
+ */
+const updateUserPermissionsSubtract = async (
+    user: User,
+    permissions: UserPermission[]
+) => {
+    const filteredPermissions = user.permissions.filter(
+        (p) => !permissions.includes(p)
+    );
+
+    UserModel.updateOne(
+        { email: user.email },
+        { permissions: filteredPermissions }
+    );
+
+    return filteredPermissions;
 };
 
 export default {
@@ -280,5 +307,6 @@ export default {
     verifyUserByResetPasswordToken,
     addUser,
     updateUserPasswordByResetPasswordToken,
-    updateUserPermissionsAppend,
+    updateUserPermissionsAdd,
+    updateUserPermissionsSubtract,
 };

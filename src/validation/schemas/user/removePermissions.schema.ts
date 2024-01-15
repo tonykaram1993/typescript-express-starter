@@ -12,11 +12,11 @@ const body = z.object({
     permissions: z.array(z.nativeEnum(globalsConfig.PERMISSIONS)),
 });
 
-const addPermissionsSchema = z.object({ body });
+const removePermissionsSchema = z.object({ body });
 
-export default addPermissionsSchema;
+export default removePermissionsSchema;
 
-export type AddPermissionsRequest = Request<
+export type RemovePermissionsRequest = Request<
     unknown, // Params
     unknown, // Response body
     z.infer<typeof body>, // Body

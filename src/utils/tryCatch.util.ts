@@ -9,7 +9,7 @@ import { RequestHandler } from "express";
  * executed when a request is made to the server.
  */
 const tryCatch =
-    (callback: RequestHandler): RequestHandler =>
+    (callback: any): RequestHandler =>
     (request, response, next) =>
         Promise.resolve(callback(request, response, next)).catch(next);
 

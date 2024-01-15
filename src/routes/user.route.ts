@@ -10,6 +10,8 @@ import tryCatch from "../utils/tryCatch.util";
 
 // Schemas
 import addPermissionsPostSchema from "../validation/schemas/user/addPermissions.schema";
+import removePermissionsPostSchema from "../validation/schemas/user/removePermissions.schema";
+import getPermissionsSchema from "../validation/schemas/user/getPermissions.schema";
 
 // Controllers
 import userControllers from "../controllers/user.controllers";
@@ -23,10 +25,32 @@ authenticatedRouter.post(
     tryCatch(validateRequestMiddleware(addPermissionsPostSchema)),
     tryCatch(
         validateUserPermissionMiddleware([
-            globalsConfig.PERMISSIONS.SET_SUSPEND_USER,
+            globalsConfig.PERMISSIONS.SET_PERMISSIONS_USER,
         ])
     ),
     tryCatch(userControllers.addPermissions)
+);
+
+authenticatedRouter.delete(
+    "/permissions",
+    tryCatch(validateRequestMiddleware(removePermissionsPostSchema)),
+    tryCatch(
+        validateUserPermissionMiddleware([
+            globalsConfig.PERMISSIONS.REMOVE_PERMISSIONS_USER,
+        ])
+    ),
+    tryCatch(userControllers.removePermissions)
+);
+
+authenticatedRouter.get(
+    "/permissions",
+    tryCatch(validateRequestMiddleware(getPermissionsSchema)),
+    tryCatch(
+        validateUserPermissionMiddleware([
+            globalsConfig.PERMISSIONS.GET_PERMISSIONS_USER,
+        ])
+    ),
+    tryCatch(userControllers.getPermissions)
 );
 
 const userRoutes = {

@@ -664,6 +664,7 @@
                 }
             }
         },
+        // TODO add delete and get for /users/permissions
         "/users/permissions": {
             "post": {
                 "tags": [
@@ -671,7 +672,7 @@
                     "permissions",
                     "post"
                 ],
-                "summary": "Allow a user with the correct permission (SET_SUSPEND_USER) to add any number of permissions to a user.",
+                "summary": "Allow a user with the correct permission (SET_PERMISSIONS_USER) to add any number of permissions to a user.",
                 "operationId": "usersPermissionsPost",
                 "requestBody": {
                     "required": true,

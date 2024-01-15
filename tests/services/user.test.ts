@@ -293,7 +293,7 @@ describe("updateUserPermissionsAppend", () => {
         (UserModel.findOne as jest.Mock).mockReturnValueOnce(null);
 
         expect(
-            await userServices.updateUserPermissionsAppend(user, [
+            await userServices.updateUserPermissionsAdd(user, [
                 globalsConfig.PERMISSIONS.SET_SUSPEND_USER,
             ])
         ).toEqual([
