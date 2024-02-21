@@ -22,7 +22,7 @@ const getSingle = (name: EnvVariablesEnum) => {
 
     if (envVariable === undefined) {
         throw new PlatformError(
-            stringsConfig.ERRORS.SOMETHING_WENT_WRONG,
+            stringsConfig.ERRORS.CANNOT_READ_ENV_VARIABLES,
             StatusCodes.INTERNAL_SERVER_ERROR
         );
     }

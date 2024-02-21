@@ -45,5 +45,5 @@ app.use(
 app.use(errorHandlerMiddleware);
 
 app.listen(PORT, () => {
-    logger.log("info", `Server is running at https://localhost:${PORT}`);
+    logger.info(`Server is running at https://localhost:${PORT}`);
 });

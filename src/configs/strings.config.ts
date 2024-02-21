@@ -1,4 +1,5 @@
 const ERRORS = {
+    CANNOT_READ_ENV_VARIABLES: "Cannot read environment variables",
     SOMETHING_WENT_WRONG: "Something went wrong",
     VALIDATION: "Validation Error",
     UNAUTHORIZED: "Unauthorized",
