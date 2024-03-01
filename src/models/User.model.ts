@@ -22,6 +22,7 @@ export type User = {
 
 const userSchema = new Schema<User>(
     {
+        // Required
         email: {
             type: String,
             required: true,
@@ -35,6 +36,8 @@ const userSchema = new Schema<User>(
             type: String,
             required: true,
         },
+
+        // Optional
         refreshToken: String,
         resetPasswordToken: String,
         isForcedToLogin: {

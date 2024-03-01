@@ -7,12 +7,12 @@ import {
     FetchWrapperArguments,
 } from "../validation/types/Fetch.type";
 
-// Utils
-import logger from "./logger.util";
+// Helpers
+import logger from "./logger.helper";
 
 const fetchWrapper = async ({
     url,
-    method,
+    method = "get",
     body,
 }: FetchWrapperArguments): Promise<AxiosResponse> => {
     const requestStartTime = Date.now();

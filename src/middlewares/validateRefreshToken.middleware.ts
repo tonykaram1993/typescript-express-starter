@@ -5,8 +5,8 @@ import { StatusCodes } from "http-status-codes";
 import stringsConfig from "../configs/strings.config";
 import globalsConfig from "../configs/globals.config";
 
-// Utils
-import PlatformError from "../utils/error.util";
+// Helpers
+import PlatformError from "../helpers/error.helper";
 
 // Services
 import userServices from "../services/user.services";

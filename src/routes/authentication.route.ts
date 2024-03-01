@@ -5,8 +5,8 @@ import validateRequestMiddleware from "../middlewares/validateRequest.middleware
 import unauthenticatedRouter from "../routers/unauthenticated.router";
 import authenticatedRouter from "../routers/authenticated.router";
 
-// Utils
-import tryCatch from "../utils/tryCatch.util";
+// Helpers
+import tryCatch from "../helpers/tryCatch.helper";
 
 // Schemas
 import authenticationSignupSchema from "../validation/schemas/authentication/signup.schema";

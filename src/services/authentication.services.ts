@@ -11,9 +11,9 @@ import DecodedJwtToken, {
 // Models
 import UserModel, { User } from "../models/User.model";
 
-// Utils
-import envVariable from "../utils/envVariable.util";
-import PlatformError from "../utils/error.util";
+// Helpers
+import envVariable from "../helpers/envVariable.helper";
+import PlatformError from "../helpers/error.helper";
 
 // Configs
 import settingsConfig from "../configs/settings.config";

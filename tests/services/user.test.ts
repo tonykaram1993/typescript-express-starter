@@ -1,5 +1,5 @@
 jest.mock("../../src/models/User.model");
-jest.mock("../../src/utils/error.util");
+jest.mock("../../src/helpers/error.helper");
 jest.mock("bcrypt");
 
 import bcrypt from "bcrypt";
@@ -11,8 +11,8 @@ import userServices from "../../src/services/user.services";
 // Models
 import UserModel, { User } from "../../src/models/User.model";
 
-// Utils
-import PlatformError from "../../src/utils/error.util";
+// Helpers
+import PlatformError from "../../src/helpers/error.helper";
 
 const user: User = {
     _id: new mongoose.Types.ObjectId(),

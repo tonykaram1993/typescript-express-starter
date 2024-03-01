@@ -19,7 +19,7 @@
 1. Axios time of flight
 1. Docker (https://www.docker.com)
 1. Source map support (https://www.npmjs.com/package/source-map-support)
-1. Authentication
+1. Authentication (seperate branch)
 
 ## Abandoned Features
 
@@ -28,7 +28,6 @@
 
 ## TODO
 
-1. Add user roles
 1. Use Bun runtime
 1. Add integration testing
 1. API versioning
@@ -63,7 +62,7 @@
   /routes
   /services
   /specs
-  /utils
+  /helpers
   /validation
     /declarations
     /schemas

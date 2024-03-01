@@ -6,8 +6,8 @@ import stringsConfig from "../configs/strings.config";
 // Types
 import EnvVariablesEnum from "../validation/types/EnvVariable.type";
 
-// Utils
-import PlatformError from "./error.util";
+// Helpers
+import PlatformError from "./error.helper";
 
 /**
  * The function `getSingle` retrieves the value of an environment variable and throws an error if it is undefined.

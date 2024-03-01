@@ -6,8 +6,8 @@ import UserModel, { User } from "../models/User.model";
 // Configs
 import stringsConfig from "../configs/strings.config";
 
-// Utils
-import PlatformError from "../utils/error.util";
+// Helpers
+import PlatformError from "../helpers/error.helper";
 
 // Services
 import authenticationServices from "./authentication.services";

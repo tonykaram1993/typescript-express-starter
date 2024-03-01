@@ -8,8 +8,8 @@ import { RequestHandler } from "express";
 import authenticationServices from "../services/authentication.services";
 import userServices from "../services/user.services";
 
-// Utils
-import PlatformError from "../utils/error.util";
+// Helpers
+import PlatformError from "../helpers/error.helper";
 
 /**
  * The authenticationMiddleware function checks for a valid authorization header, decodes the token, retrieves the user

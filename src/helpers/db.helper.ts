@@ -1,8 +1,8 @@
 import mongoose, { ConnectOptions } from "mongoose";
 
-// Utils
-import logger from "./logger.util";
-import envVariable from "./envVariable.util";
+// Helpers
+import logger from "./logger.helper";
+import envVariable from "./envVariable.helper";
 
 // Configs
 import stringsConfig from "../configs/strings.config";

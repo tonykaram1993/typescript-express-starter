@@ -7,9 +7,9 @@ import helmet from "helmet";
 // Config
 import globalsConfig from "../configs/globals.config";
 
-// Utils
-import rateLimiter from "../utils/limiter.util";
-import envVariable from "../utils/envVariable.util";
+// Helpers
+import rateLimiter from "../helpers/limiter.helper";
+import envVariable from "../helpers/envVariable.helper";
 
 const router = Router({
     mergeParams: true,
