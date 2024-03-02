@@ -18,7 +18,7 @@ import authenticationServices from "./authentication.services";
  * @param {string} email - The email parameter is a string that represents the email address of the
  * user you want to find.
  *
- * @returns the user object that is found in the database based on the provided email.
+ * @returns {User|false} the user object that is found in the database based on the provided email.
  */
 const getUserByEmail = async (email: string) => {
     const user = await UserModel.findOne({
@@ -40,7 +40,7 @@ const getUserByEmail = async (email: string) => {
  *  token generated  for a user when they request to reset their password. This token is used to identify
  *  the user and verify their identity when resetting their password.
  *
- * @returns either `false` if no user is found with the given reset password token, or it is returning the
+ * @returns {User|false} either `false` if no user is found with the given reset password token, or it is returning the
  *  user object as a plain JavaScript object if a user is found.
  */
 const getUserByResetPasswordToken = async (resetPasswordToken: string) => {
@@ -61,7 +61,8 @@ const getUserByResetPasswordToken = async (resetPasswordToken: string) => {
  * token associated with a user. It is typically used for authentication purposes to obtain a new
  * access token when the current one expires.
  *
- * @returns the user object that is found in the database based on the provided refresh token.
+ * @returns {User|false} either `false` if no user is found or the user object that is found in the database based on
+ * the provided refresh token.
  */
 const getUserByRefreshToken = async (refreshToken: string) => {
     const user = await UserModel.findOne({
@@ -82,7 +83,7 @@ const getUserByRefreshToken = async (refreshToken: string) => {
  * @param {string} email - The `email` parameter is a string that represents the email address of the
  * user you want to verify.
  *
- * @returns The function `verifyUserByEmail` returns the user object if it exists.
+ * @returns {User} The function `verifyUserByEmail` returns the user object if it exists.
  */
 const verifyUserByEmail = async (email: string) => {
     const user = await getUserByEmail(email);
@@ -106,7 +107,7 @@ const verifyUserByEmail = async (email: string) => {
  * @param {Date} lastLoginAt - The `lastLoginAt` parameter is a `Date` object that represents the date
  * and time of the user's last login.
  *
- * @returns The function `updateUserLastLoginAt` returns either `false` if the user was not found and
+ * @returns {User|false} The function `updateUserLastLoginAt` returns either `false` if the user was not found and
  * updated, or it returns the updated user object as a plain JavaScript object.
  */
 const updateUserLastLoginAt = async (user: User, lastLoginAt: Date) => {
@@ -133,7 +134,7 @@ const updateUserLastLoginAt = async (user: User, lastLoginAt: Date) => {
  *
  * @param {string} refreshToken - A string representing the refresh token of the user.
  *
- * @returns the user object if it exists.
+ * @returns {User} the user object if it exists.
  */
 const verifyUserByRefreshToken = async (refreshToken: string) => {
     const user = await getUserByRefreshToken(refreshToken);
@@ -171,7 +172,7 @@ const verifyEmailUniqueness = async (email: string) => {
  *
  * @param {string} resetPasswordToken - A string representing the reset password token that is used to verify the user.
  *
- * @returns the user object if it exists.
+ * @returns {User} the user object if it exists.
  */
 const verifyUserByResetPasswordToken = async (resetPasswordToken: string) => {
     const user = await getUserByResetPasswordToken(resetPasswordToken);
@@ -194,7 +195,7 @@ const verifyUserByResetPasswordToken = async (resetPasswordToken: string) => {
  * user you want to add.
  * @param {string} password - The `password` parameter is a string that represents the user's password.
  *
- * @returns The function `addUser` is returning a Promise that resolves to a user object.
+ * @returns {User} The function `addUser` is returning a Promise that resolves to a user object.
  */
 const addUser = async (email: string, password: string) => {
     await verifyEmailUniqueness(email);
@@ -213,7 +214,7 @@ const addUser = async (email: string, password: string) => {
  * @param {string} resetPasswordToken - A string representing the reset password token generated for the user.
  * @param {string} password - The `password` parameter is the new password that the user wants to set.
  *
- * @returns the updated user object.
+ * @returns {User} the updated user object.
  */
 const updateUserPasswordByResetPasswordToken = async (
     resetPasswordToken: string,

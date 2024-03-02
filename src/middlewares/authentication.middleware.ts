@@ -24,7 +24,7 @@ import PlatformError from "../helpers/error.helper";
  * @param next - The `next` parameter is a function that is called to pass control to the next middleware function in the
  * chain. It is typically used to move to the next middleware function or to the route handler.
  *
- * @returns In this code snippet, if the `authorizationHeader` is `undefined`, a response with status code `401`
+ * @returns {void} In this code snippet, if the `authorizationHeader` is `undefined`, a response with status code `401`
  * (UNAUTHORIZED) and a JSON object containing a `message` property will be returned. If the `authorizationHeader` is
  * defined, the code will continue to execute and call the `next()` function to pass control to the next middleware or
  * route handler.

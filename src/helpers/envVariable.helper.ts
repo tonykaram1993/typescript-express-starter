@@ -15,7 +15,7 @@ import PlatformError from "./error.helper";
  * @param {EnvVariablesEnum} name - The `name` parameter is of type `EnvVariablesEnum`. It is used to specify the name of
  * the environment variable that you want to retrieve the value for.
  *
- * @returns The function `getSingle` returns the value of the environment variable specified by the `name` parameter.
+ * @returns {function} The function `getSingle` returns the value of the environment variable specified by the `name` parameter.
  */
 const getSingle = (name: EnvVariablesEnum) => {
     const envVariable = process.env[name];

@@ -24,7 +24,7 @@ import userServices from "../services/user.services";
  * request-response cycle. It is typically called at the end of the current middleware function to indicate that it has
  * completed its processing and the next middleware function should be called.
  *
- * @returns In this code snippet, if the `authorizationHeader` is `undefined`, a response with status code `401`
+ * @returns {void} In this code snippet, if the `authorizationHeader` is `undefined`, a response with status code `401`
  * (UNAUTHORIZED) and a JSON object containing a `message` property will be returned. If the `authorizationHeader` is
  * defined, the code will continue to execute and call the `next()` function to pass control to the next middleware or
  * route handler.

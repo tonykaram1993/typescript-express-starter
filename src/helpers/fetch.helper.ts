@@ -10,6 +10,9 @@ import {
 // Helpers
 import logger from "./logger.helper";
 
+// Utils
+import dateUtils from "../utils/date.util";
+
 const fetchWrapper = async ({
     url,
     method = "get",
@@ -19,7 +22,7 @@ const fetchWrapper = async ({
 
     const response = await axios[method](url, { method, body });
 
-    const requestDuration = (Date.now() - requestStartTime) / 1000;
+    const requestDuration = dateUtils.getElapsedTimeInSeconds(requestStartTime);
 
     logger.info(
         `[${method.toUpperCase()}] ${colorette.blue(
