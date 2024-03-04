@@ -21,8 +21,9 @@
         "lint": "eslint --ignore-path .gitignore --ext .js,.ts .",
         "lint:fix": "eslint --ignore-path .gitignore --ext .js,.ts --fix .",
         "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+        "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
         "test": "yarn build && jest ./dist/tests",
-        "pre:commit": "yarn lint && yarn format && yarn build && yarn test",
+        "pre:commit": "yarn lint && yarn prettier && yarn format && yarn build && yarn test",
         "prepare": "husky"
     },
     "author": "tonykaram1993",
