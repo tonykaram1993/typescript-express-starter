@@ -24,6 +24,7 @@
         "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
         "test": "yarn build && jest ./dist/tests",
         "pre:commit": "yarn lint && yarn prettier && yarn format && yarn build && yarn test",
+        "post:checkout": "yarn install",
         "prepare": "husky"
     },
     "author": "tonykaram1993",
