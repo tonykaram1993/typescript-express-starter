@@ -19,7 +19,7 @@
 1. Axios time of flight
 1. Docker (https://www.docker.com)
 1. Source map support (https://www.npmjs.com/package/source-map-support)
-1. Authentication (seperate branch)
+1. Authentication (separate branch)
 1. Husky (https://www.npmjs.com/package/husky)
 
 ## Abandoned Features
@@ -55,6 +55,7 @@
 /src
   /configs
   /controllers
+  /helpers
   /logs
   /middlewares
   /models
@@ -62,16 +63,12 @@
   /routes
   /services
   /specs
-  /helpers
+  /utils
   /validation
     /declarations
     /schemas
-      /authentication
-      /index
     /types
-      /authentication
-      /index
-  /types
 /tests
   /services
+  /utils
 ```
