@@ -8,3 +8,4 @@ dist
 logs
 yarn.lock
 .DS_Store
+.husky
