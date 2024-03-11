@@ -23,7 +23,7 @@
         "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
         "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
         "test": "yarn build && jest ./dist/tests",
-        "pre:commit": "yarn prettier && yarn format && yarn build && yarn test",
+        "pre:commit": "yarn prettier && yarn build && yarn test",
         "post:checkout": "yarn install",
         "prepare": "husky"
     },
