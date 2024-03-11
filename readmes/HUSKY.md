@@ -5,6 +5,15 @@ Currently, there are two husky scripts that run:
 -   Pre commit
 -   Post checkout
 
+### Setup
+
+When you install dependencies using `yarn install` the `prepare` script in package.json will automatically run and setup husky.
+In order to setup the husky commit hooks. Simply run the `setupHusky.sh` script in the scripts folder:
+
+```sh
+./scripts/setupHusky.sh
+```
+
 ### Pre Commit
 
 The following runs before a developer commits a change:
