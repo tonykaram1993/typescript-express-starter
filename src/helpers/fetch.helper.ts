@@ -7,19 +7,22 @@ import {
     FetchWrapperArguments,
 } from "../validation/types/Fetch.type";
 
+// Helpers
+import logger from "./logger.helper";
+
 // Utils
-import logger from "./logger.util";
+import dateUtils from "../utils/date.util";
 
 const fetchWrapper = async ({
     url,
-    method,
+    method = "get",
     body,
 }: FetchWrapperArguments): Promise<AxiosResponse> => {
     const requestStartTime = Date.now();
 
     const response = await axios[method](url, { method, body });
 
-    const requestDuration = (Date.now() - requestStartTime) / 1000;
+    const requestDuration = dateUtils.getElapsedTimeInSeconds(requestStartTime);
 
     logger.info(
         `[${method.toUpperCase()}] ${colorette.blue(

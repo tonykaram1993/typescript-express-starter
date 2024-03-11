@@ -11,9 +11,9 @@ import DecodedJwtToken, {
 // Models
 import UserModel, { User } from "../models/User.model";
 
-// Utils
-import envVariable from "../utils/envVariable.util";
-import PlatformError from "../utils/error.util";
+// Helpers
+import envVariable from "../helpers/envVariable.helper";
+import PlatformError from "../helpers/error.helper";
 
 // Configs
 import settingsConfig from "../configs/settings.config";
@@ -29,7 +29,7 @@ import globalsConfig from "../configs/globals.config";
  * to send authentication credentials, such as a token, to the server. In this code snippet, the
  * function `getTokenFromAuthorizationHeader` extracts the token from the authorization
  *
- * @returns the token extracted from the authorization header.
+ * @returns {string} the token extracted from the authorization header.
  */
 const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
     const [, token] = authorizationHeader.split("Bearer ");
@@ -50,7 +50,7 @@ const getTokenFromAuthorizationHeader = (authorizationHeader: string) => {
  *
  * @param {User} user - The `user` parameter is an object of type `User`.
  *
- * @returns a decoded JWT token.
+ * @returns {string} a decoded JWT token.
  */
 const getSafeUserData = (user: User): DecodedJwtToken =>
     lodash.omit(user, userPropertiesToOmitInTokens);
@@ -60,7 +60,7 @@ const getSafeUserData = (user: User): DecodedJwtToken =>
  *
  * @param {User} user - The `user` parameter is an object of type `User`.
  *
- * @returns The function `generateJwtToken` returns a JSON Web Token (JWT) token.
+ * @returns {string} The function `generateJwtToken` returns a JSON Web Token (JWT) token.
  */
 const generateJwtToken = (user: User) => {
     const JWT_TOKEN_SECRET = envVariable.getSingle(
@@ -82,7 +82,7 @@ const generateJwtToken = (user: User) => {
  *
  * @param {User} user - The `user` parameter is an object of type `User`.
  *
- * @returns the refresh token.
+ * @returns {string} the refresh token.
  */
 const generateRefreshToken = async (user: User) => {
     const JWT_REFRESH_TOKEN_SECRET = envVariable.getSingle(
@@ -110,7 +110,7 @@ const generateRefreshToken = async (user: User) => {
  * @param {string} email - The `email` parameter is a string that represents the email address of the user
  *  for whom the reset password token is being generated.
  *
- * @returns the resetPasswordToken.
+ * @returns {string} the resetPasswordToken.
  */
 const generateResetPasswordToken = async (email: string) => {
     const JWT_RESET_PASSWORD_TOKEN_SECRET = envVariable.getSingle(
@@ -159,7 +159,7 @@ const deleteRefreshToken = async (user: User) =>
  *
  * @param {string} token - The `token` parameter is a string that represents a JSON Web Token (JWT).
  *
- * @returns The function `decodeToken` returns the decoded token as an object of type
+ * @returns {DecodedJwtToken} The function `decodeToken` returns the decoded token as an object of type
  * `DecodedJwtToken`.
  */
 const decodeToken = (token: string) => {
@@ -217,7 +217,8 @@ const checkUserPassword = (user: User, password: string) => {
  * @param {string} password - The `password` parameter is a string that represents the user's password that
  *  needs to be encrypted.
  *
- * @returns The function `encryptUserPassword` returns an object with two properties: `salt` and `hash`.
+ * @returns {{salt: string, hash: string}} The function `encryptUserPassword` returns an object with two
+ * properties: `salt` and `hash`.
  */
 const encryptUserPassword = (password: string) => {
     const salt = bcrypt.genSaltSync(settingsConfig.AUTHENTICATION.SALT_ROUNDS);

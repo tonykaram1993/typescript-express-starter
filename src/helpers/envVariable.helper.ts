@@ -6,8 +6,8 @@ import stringsConfig from "../configs/strings.config";
 // Types
 import EnvVariablesEnum from "../validation/types/EnvVariable.type";
 
-// Utils
-import PlatformError from "./error.util";
+// Helpers
+import PlatformError from "./error.helper";
 
 /**
  * The function `getSingle` retrieves the value of an environment variable and throws an error if it is undefined.
@@ -15,7 +15,7 @@ import PlatformError from "./error.util";
  * @param {EnvVariablesEnum} name - The `name` parameter is of type `EnvVariablesEnum`. It is used to specify the name of
  * the environment variable that you want to retrieve the value for.
  *
- * @returns The function `getSingle` returns the value of the environment variable specified by the `name` parameter.
+ * @returns {function} The function `getSingle` returns the value of the environment variable specified by the `name` parameter.
  */
 const getSingle = (name: EnvVariablesEnum) => {
     const envVariable = process.env[name];

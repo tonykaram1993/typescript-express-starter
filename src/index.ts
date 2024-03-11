@@ -14,10 +14,10 @@ import swaggerDocument from "./specs/swagger.json";
 import swaggerOptions from "./configs/swagger.config";
 import globalsConfig from "./configs/globals.config";
 
-// Utils
-import db from "./utils/db.util";
-import logger from "./utils/logger.util";
-import envVariable from "./utils/envVariable.util";
+// Helpers
+import db from "./helpers/db.helper";
+import logger from "./helpers/logger.helper";
+import envVariable from "./helpers/envVariable.helper";
 
 // Middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandler.middleware";

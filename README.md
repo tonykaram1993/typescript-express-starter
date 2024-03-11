@@ -19,7 +19,8 @@
 1. Axios time of flight
 1. Docker (https://www.docker.com)
 1. Source map support (https://www.npmjs.com/package/source-map-support)
-1. Authentication
+1. Authentication (separate branch)
+1. Husky (https://www.npmjs.com/package/husky)
 
 ## Abandoned Features
 
@@ -28,12 +29,10 @@
 
 ## TODO
 
-1. Add user roles
 1. Use Bun runtime
 1. Add integration testing
 1. API versioning
 1. MySQL
-1. Husky
 
 ## How to install
 
@@ -56,6 +55,7 @@
 /src
   /configs
   /controllers
+  /helpers
   /logs
   /middlewares
   /models
@@ -67,12 +67,8 @@
   /validation
     /declarations
     /schemas
-      /authentication
-      /index
     /types
-      /authentication
-      /index
-  /types
 /tests
   /services
+  /utils
 ```

@@ -1,6 +1,6 @@
-jest.mock("../../src/utils/error.util");
+jest.mock("../../src/helpers/error.helper");
 jest.mock("../../src/models/User.model");
-jest.mock("../../src/utils/envVariable.util");
+jest.mock("../../src/helpers/envVariable.helper");
 jest.mock("bcrypt");
 jest.mock("jsonwebtoken");
 
@@ -9,8 +9,8 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import lodashOmit from "lodash/omit";
 
-// Utils
-import envVariable from "../../src/utils/envVariable.util";
+// Helpers
+import envVariable from "../../src/helpers/envVariable.helper";
 
 // Services
 import authenticationServices from "../../src/services/authentication.services";

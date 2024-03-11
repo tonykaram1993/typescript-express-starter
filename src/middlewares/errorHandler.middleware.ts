@@ -1,9 +1,9 @@
 import { ErrorRequestHandler } from "express";
 import { StatusCodes } from "http-status-codes";
 
-// Utils
-import logger from "../utils/logger.util";
-import PlatformError from "../utils/error.util";
+// Helpers
+import logger from "../helpers/logger.helper";
+import PlatformError from "../helpers/error.helper";
 
 // Configs
 import stringsConfig from "../configs/strings.config";

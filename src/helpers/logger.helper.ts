@@ -4,8 +4,8 @@ import { createLogger, format, transports } from "winston";
 import globalsConfig from "../configs/globals.config";
 import settingsConfig from "../configs/settings.config";
 
-// Utils
-import envVariable from "./envVariable.util";
+// Helpers
+import envVariable from "./envVariable.helper";
 
 const NODE_ENV = envVariable.getSingle(globalsConfig.ENV_VARIABLES.NODE_ENV);
 
